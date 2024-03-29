@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import testdata from '../data/livetest.json'
 import { NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import baseUrl from '../baseUrl';
 
 function Dashboard() {
 
    const navigate = useNavigate();
    const [posts, setPosts] = useState([]);
    const [currentUser, setCurrentUser] = useState('');
+   const [email, setEmail] = useState('');
 
     useEffect(() => {
         const currentUser = localStorage.getItem("currentUser");
+        setEmail(currentUser);
 
+        console.log(email);
+        axios.get(`${baseUrl}/gettestsbyuserid`, {params: {currentUser}})
+        .then(function(response)
+            {
+              console.log(response);
+            });
         if(currentUser)
         {
           const path = `/dashboard`

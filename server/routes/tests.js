@@ -9,6 +9,7 @@ const {sendEmail} = require("../controllers/sendEmail");
 const {getOTP} = require("../controllers/getOTP");
 const {getUser} = require("../controllers/getUser");
 const {submitTest} = require("../controllers/submitTest");
+const {getTestsByUserId} = require("../controllers/getTestsByUserId");
 
 router.post("/login", getLogin);
 router.post("/signup", getSignup);
@@ -16,5 +17,6 @@ router.post("/sendemail", sendEmail);
 router.get("/getotp", getOTP);
 router.get("/getuser", getUser);
 router.post("/submittest", submitTest);
+router.get("/gettestsbyuserid", getTestsByUserId);
 
 module.exports = router;

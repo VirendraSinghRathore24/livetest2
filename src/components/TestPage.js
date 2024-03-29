@@ -230,8 +230,15 @@ function TestPage() {
     existingEntries.push(testObject);
     
     localStorage.setItem((user + "data"), JSON.stringify(existingEntries));
-
-    axios.post(`${baseUrl}/submittest`, {name: (user + "data"), data: testObject});
+    
+    try
+    {
+        axios.post(`${baseUrl}/submittest`, {name: (user + "data"), data: testObject});
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
     
     const timeTaken = `${minutes}:${seconds}`
     console.log(timeTaken);

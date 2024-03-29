@@ -12,6 +12,7 @@ exports.submitTest = async(req, res) => {
             result:result,
             date:date
         });
+        console.log('testt');
         res.send({message : 'Test Submitted Successfully'});
     }
     catch(err)
