@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import {db} from "../config/firebase";
 import {getDocs, collection, query, where, getDoc} from "firebase/firestore";
+import Spinner from './Spinner';
 
 function Dashboard() {
 
@@ -9,6 +10,7 @@ function Dashboard() {
    const [posts, setPosts] = useState([]);
    const [currentUser, setCurrentUser] = useState('');
    const [email, setEmail] = useState('');
+   const [loading, setLoading] = useState(false);
 
    const testCollectionRef = collection(db, "tests");
 
@@ -16,6 +18,7 @@ function Dashboard() {
     // Read
     try
     {
+       setLoading(true);
         const currentUser = localStorage.getItem("currentUser");
         var q = query(testCollectionRef,where('name', '==', (currentUser + "data") ))
 
@@ -29,6 +32,7 @@ function Dashboard() {
           productArray.push({...data1});
         }
         setPosts(productArray);
+        setLoading(false);
     }
     catch(err){
         console.log(err);
@@ -43,7 +47,7 @@ function Dashboard() {
         const user = localStorage.getItem("currentUser");
 
         setCurrentUser(user);
-        //setPosts(data);
+
         window.scroll(0,0);
       }, []);
 
@@ -53,16 +57,16 @@ function Dashboard() {
        <div className="overflow-hidden mt-10 p-2">
        <table className="w-full sm:w-10/12 mx-auto text-left text-sm font-light">
             <thead className="font-medium ">
-                <tr className='bg-blue-300 border-2 border-black text-blue-800 font-bold text-xl'>
+                <tr className='bg-blue-300 border-2 border-black text-blue-800 font-semibold text-lg md:text-xl'>
                   <th scope="col" className="px-1 py-2 border-r-2 text-center">#</th>
-                  <th scope="col" className="px-1 py-2  text-center border-r-2 border-black" >Test Name</th>
-                  <th scope="col" className="px-1 py-2  text-center border-r-2 border-black" >Test Score</th>
-                  <th scope="col" className="px-1 py-2  text-center border-r-2 border-black" >Test Date</th>
+                  <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Test Name</th>
+                  <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Test Score</th>
+                  <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Test Date</th>
                 </tr>
             </thead>
             <tbody>
             {
-            //loading ? (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>) : (
+             loading ? (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>) : (
               posts !== null && posts.map((p, index) => (
                 <tr className="border-2 border-black">
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2  align-baseline text-center text-wrap ">{index+1}</td>
@@ -72,7 +76,7 @@ function Dashboard() {
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.result} %</td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.date}</td>
                 </tr>
-                ))
+                )))
                 } 
            </tbody> 
         </table>
