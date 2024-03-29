@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(
 	cors({
 		//origin:"http://localhost:3000",
-		origin:"https://livetest2-g6n4.onrender.com",
+		origin:"https://virentest.netlify.app/",
 		credentials:true,
 	})
 )
