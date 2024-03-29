@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import testdata from '../data/livetest.json'
 import { NavLink, useNavigate } from 'react-router-dom';
-import axios from 'axios'
-import baseUrl from '../baseUrl';
+import {db} from "../config/firebase";
+import {getDocs, collection, query, where, getDoc} from "firebase/firestore";
 
 function Dashboard() {
 
@@ -11,31 +10,40 @@ function Dashboard() {
    const [currentUser, setCurrentUser] = useState('');
    const [email, setEmail] = useState('');
 
+   const testCollectionRef = collection(db, "tests");
+
+   const getTestList = async () => {
+    // Read
+    try
+    {
+        const currentUser = localStorage.getItem("currentUser");
+        var q = query(testCollectionRef,where('name', '==', (currentUser + "data") ))
+
+        const pp = await getDocs(q);
+
+        var productArray = [];
+
+        for(var snap of pp.docs)
+        {
+          var data1 = snap.data();
+          productArray.push({...data1});
+        }
+        setPosts(productArray);
+    }
+    catch(err){
+        console.log(err);
+    }
+    
+}
     useEffect(() => {
         const currentUser = localStorage.getItem("currentUser");
         setEmail(currentUser);
-
-        console.log(email);
-        axios.get(`${baseUrl}/gettestsbyuserid`, {params: {currentUser}})
-        .then(function(response)
-            {
-              console.log(response);
-            });
-        if(currentUser)
-        {
-          const path = `/dashboard`
-          navigate(path);
-        }
-        else
-        {
-          navigate('/login');
-        }
+        getTestList();
 
         const user = localStorage.getItem("currentUser");
-        var data = JSON.parse(localStorage.getItem(user + "data"));
 
         setCurrentUser(user);
-        setPosts(data);
+        //setPosts(data);
         window.scroll(0,0);
       }, []);
 

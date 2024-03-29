@@ -6,6 +6,8 @@ import Timer from './Timer';
 import ReactModal from 'react-modal';
 import axios from 'axios'
 import baseUrl from '../baseUrl';
+import {db} from "../config/firebase";
+import {collection, addDoc} from "firebase/firestore";
 
 function TestPage() {
   
@@ -196,7 +198,9 @@ function TestPage() {
     {
         setIsOpen(false);
     }
-  const handleSubmitClick = () =>
+
+    const testCollectionRef = collection(db, "tests");
+  const handleSubmitClick = async () =>
   {
     let c = 0;
     for(var i = 0; i < lastIndex; i++)
@@ -218,27 +222,42 @@ function TestPage() {
     //localStorage.removeItem("viren")
     
     const user = localStorage.getItem("currentUser");
-    var existingEntries = JSON.parse(localStorage.getItem((user + "data")));
-    if(existingEntries == null) existingEntries = [];
-    var testObject ={testid:testid, 
-                     paper:paper,
-                     result:result,
-                     date:date
-                    };
-                    console.log(user)
-    localStorage.setItem('testObject', JSON.stringify(testObject));
-    existingEntries.push(testObject);
+    // var existingEntries = JSON.parse(localStorage.getItem((user + "data")));
+    // if(existingEntries == null) existingEntries = [];
+    // var testObject ={testid:testid, 
+    //                  paper:paper,
+    //                  result:result,
+    //                  date:date
+    //                 };
+    //                 console.log(user)
+    // localStorage.setItem('testObject', JSON.stringify(testObject));
+    // existingEntries.push(testObject);
     
-    localStorage.setItem((user + "data"), JSON.stringify(existingEntries));
+    // localStorage.setItem((user + "data"), JSON.stringify(existingEntries));
     
-    try
-    {
-        axios.post(`${baseUrl}/submittest`, {name: (user + "data"), data: testObject});
-    }
-    catch(err)
-    {
-        console.log(err);
-    }
+    // try
+    // {
+    //     axios.post(`${baseUrl}/submittest`, {name: (user + "data"), data: testObject});
+    // }
+    // catch(err)
+    // {
+    //     console.log(err);
+    // }
+
+
+
+        try{
+             await addDoc(testCollectionRef, {
+                name: (user + "data"), testid : testid, paper : paper, result : result, date:date
+            });
+        }
+        catch(err)
+        {
+
+        }
+    
+    
+
     
     const timeTaken = `${minutes}:${seconds}`
     console.log(timeTaken);
