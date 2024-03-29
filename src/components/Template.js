@@ -20,9 +20,9 @@ function Template(props) {
     }
 };
   return (
-    <div className='flex justify-between w-full md:w-11/12 mx-auto mt-2 '>
+    <div className='flex justify-center md:justify-between w-full md:w-11/12 mx-auto mt-2 '>
         <div className='w-11/12 max-w-[450px]'>
-            <h1 className='text-richblack-700 font-semibold text-[1.875rem] leading-[2.375rem]'>{props.title}</h1>
+            <h1 className='text-center text-richblack-700 font-semibold text-[1.875rem] leading-[2.375rem]'>{props.title}</h1>
             
            {props.formType === "signup" 
            ? (<SignupForm setIsLoggedIn={props.setIsLoggedIn}/>)
