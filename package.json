@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
     "firebase": "^10.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -53,9 +54,5 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.2.7"
-  },
-  "description": "This is a starter pack for creating React projects with Tailwind CSS configured. It uses React version **18.2** and Tailwind CSS version **3.2**.",
-  "main": "tailwind.config.js",
-  "keywords": [],
-  "license": "ISC"
+  }
 }
