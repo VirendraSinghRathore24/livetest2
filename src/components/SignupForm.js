@@ -23,8 +23,6 @@ function SignupForm({setIsLoggedIn}) {
     const [userAlreadyExists, setUserAlreadyExists] = useState(false);
     const [invalidOTP, setInvalidOTP] = useState(false);
 
-    
-
     function changeHandler(event){
         setFormData((prevData) =>(
         {
