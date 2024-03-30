@@ -199,9 +199,10 @@ function TestPage() {
         setIsOpen(false);
     }
 
-    const testCollectionRef = collection(db, "tests");
+  const testCollectionRef = collection(db, "tests");
   const handleSubmitClick = async () =>
   {
+    var ans = [];
     let c = 0;
     for(var i = 0; i < lastIndex; i++)
     {
@@ -212,6 +213,8 @@ function TestPage() {
         {
             c = c + 1;
         }
+
+        ans.push({resUser});
     }
 
     var result = (c/lastIndex)*100;
@@ -219,50 +222,24 @@ function TestPage() {
     var today = new Date();
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
-    //localStorage.removeItem("viren")
+    var resultid = date + '-' + today.getMilliseconds();
     
     const user = localStorage.getItem("currentUser");
-    // var existingEntries = JSON.parse(localStorage.getItem((user + "data")));
-    // if(existingEntries == null) existingEntries = [];
-    // var testObject ={testid:testid, 
-    //                  paper:paper,
-    //                  result:result,
-    //                  date:date
-    //                 };
-    //                 console.log(user)
-    // localStorage.setItem('testObject', JSON.stringify(testObject));
-    // existingEntries.push(testObject);
-    
-    // localStorage.setItem((user + "data"), JSON.stringify(existingEntries));
-    
-    // try
-    // {
-    //     axios.post(`${baseUrl}/submittest`, {name: (user + "data"), data: testObject});
-    // }
-    // catch(err)
-    // {
-    //     console.log(err);
-    // }
-
-
 
         try{
              await addDoc(testCollectionRef, {
-                name: (user + "data"), testid : testid, paper : paper, result : result, date:date
+                name: (user + "data"), testid : testid, paper : paper, result : result, date:date, ans:ans, resultid:resultid
             });
         }
         catch(err)
         {
-
+            console.log(err);
         }
-    
-    
 
-    
     const timeTaken = `${minutes}:${seconds}`
     console.log(timeTaken);
 
-    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}`; 
+    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&resultid=${resultid}`; 
     navigate(path);
   }
 
