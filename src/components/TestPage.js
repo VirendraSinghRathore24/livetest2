@@ -4,10 +4,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import TestCard from './TestCard';
 import Timer from './Timer';
 import ReactModal from 'react-modal';
-import axios from 'axios'
-import baseUrl from '../baseUrl';
 import {db} from "../config/firebase";
 import {collection, addDoc} from "firebase/firestore";
+
 
 function TestPage() {
   
@@ -221,6 +220,7 @@ function TestPage() {
      
     var today = new Date();
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    const time = today.toLocaleTimeString();
 
     var resultid = date + '-' + today.getMilliseconds();
     
@@ -228,7 +228,7 @@ function TestPage() {
 
         try{
              await addDoc(testCollectionRef, {
-                name: (user + "data"), testid : testid, paper : paper, result : result, date:date, ans:ans, resultid:resultid
+                name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid
             });
         }
         catch(err)
@@ -239,11 +239,11 @@ function TestPage() {
     const timeTaken = `${minutes}:${seconds}`
     console.log(timeTaken);
 
-    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&resultid=${resultid}`; 
+    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
     navigate(path);
   }
 
-  
+  let pending = false;
   useEffect(() => {
     window.scroll(0,0);
     for(var i = 0; i <= lastIndex; i++)
@@ -254,6 +254,8 @@ function TestPage() {
     fetchTestData();
     
   }, []);
+  
+
 
   return (
     <div>

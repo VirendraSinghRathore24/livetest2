@@ -111,7 +111,7 @@ const handleLeaderBoard = async () =>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.result} %</td>
                   {
                     isLeader ? (<td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.name.substring(0, p.name.length -4)}</td>)
-                             : (<td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.date}</td>)
+                             : (<td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.date} {p.time}</td>)
                   }
                   
                 </tr>

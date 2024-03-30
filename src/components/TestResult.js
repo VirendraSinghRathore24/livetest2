@@ -11,6 +11,7 @@ function TestResult() {
     const paper = searchParams.get('paper').replaceAll('%20', ' ');
     const testid = searchParams.get('testid');
     const date = searchParams.get('date');
+    const time = searchParams.get('time');
     const resultid = searchParams.get('resultid');
     const [posts, setPosts] = useState(testdata);
     const [isDone, setIsDone] = useState(false);
@@ -67,7 +68,7 @@ function TestResult() {
             <div className='text-lg'>You have completed the test</div>
             <div className='text-xl font-bold text-blue-600'>{paper}</div>
             <div className='text-lg text-center p-2'>This test was organized by livetest.com on</div>
-            <div className='text-lg text-center font-semibold'>{date}</div>
+            <div className='text-lg text-center font-semibold'>{date} {time}</div>
             <div className=' text-xl font-semibold mt-2'>Your Score : {score} %</div>
         </div>
         <div class="flex items-center mx-auto text-center border-t border-brColor pt-4 w-8/12"></div>

@@ -1,11 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {db} from "../config/firebase";
+import {collection, addDoc} from "firebase/firestore";
 
 const Timer = ({testid, paper, lastIndex, posts}) => {
     const navigate = useNavigate();
     const [minutes, setMinutes ] = useState(1);
     const [seconds, setSeconds ] =  useState(10);
+
+    const testCollectionRef = collection(db, "tests");
+
     useEffect(()=>{
     let myInterval = setInterval(() => {
             if (seconds > 0) {
@@ -25,41 +30,47 @@ const Timer = ({testid, paper, lastIndex, posts}) => {
           };
     });
 
-    const submitTest = () =>{
-        let c = 0;
-        for(var i = 0; i < lastIndex; i++)
-        {
-            var resUser = localStorage.getItem(testid +"#"+(i + 1));
-            var result = posts[i].result;
-
-            if(resUser == result)
+    const submitTest = async () =>{
+            var ans = [];
+            let c = 0;
+            for(var i = 0; i < lastIndex; i++)
             {
-                c = c + 1;
+                var resUser = localStorage.getItem(testid +"#"+(i + 1));
+                var result1 = posts[i].result;
+
+                if(resUser == result1)
+                {
+                    c = c + 1;
+                }
+
+                ans.push({resUser});
             }
-        }
 
-        var res = (c/lastIndex)*100;
-        
-        var today = new Date();
-        const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            var result = (c/lastIndex)*100;
+            
+            var today = new Date();
+            const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const time = today.toLocaleTimeString();
 
-        //localStorage.removeItem("viren")
-        const user = localStorage.getItem("currentUser");
-        var existingEntries = JSON.parse(localStorage.getItem(user + "data"));
-        if(existingEntries == null) existingEntries = [];
-        var testObject ={testid:testid, 
-                        paper:paper,
-                        res:res,
-                        date:date
-                        };
+            var resultid = date + '-' + today.getMilliseconds();
+            
+            const user = localStorage.getItem("currentUser");
 
-        localStorage.setItem('testObject', JSON.stringify(testObject));
-        existingEntries.push(testObject);
-        
-        localStorage.setItem((user + "data"), JSON.stringify(existingEntries));
+                try{
+                    await addDoc(testCollectionRef, {
+                        name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid
+                    });
+                }
+                catch(err)
+                {
+                    console.log(err);
+                }
 
-        let path = `/testresult?testid=${testid}&paper=${paper}&&score=${res}&&date=${date}`; 
-        navigate(path);
+            const timeTaken = `${minutes}:${seconds}`
+            console.log(timeTaken);
+
+            let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
+            navigate(path);
     }
     return (
         <div>
