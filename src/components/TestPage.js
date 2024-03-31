@@ -314,7 +314,7 @@ function TestPage({setHideHeader}) {
                 ))
             }
          </div>
-         <div className='w-full md:w-5/12 mx-auto min-h-[90vh] mt-32'>
+         <div className='w-full md:w-5/12 mx-auto mb-20 mt-32'>
                 {
                     <div className=''>
                         <div className='font-semibold text-xl'>{posts[index].question}</div>
