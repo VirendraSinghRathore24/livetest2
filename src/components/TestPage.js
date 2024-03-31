@@ -29,7 +29,7 @@ function TestPage() {
   const [runningMin, setRunningMin] = useState(0);
   const [runningSec, setRunningSec] = useState(0);
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   function fetchTestData()
   {
@@ -44,6 +44,7 @@ function TestPage() {
   const handlePrevClick = (ind) => {
     setOpen(true);
     setIndex(index - 1);
+    window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
 
@@ -97,6 +98,7 @@ function TestPage() {
   const handleNextClick = (ind) => {
     setOpen(true);
     setIndex(index + 1);
+    window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
 
@@ -254,7 +256,7 @@ function TestPage() {
 
 
   return (
-    <div className=''>
+    <div className='overflow-y-scroll'>
     <div className='flex justify-between shadow-lg p-2 '>
         <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds}/></div>
         <div className='text-lg md:text-xl mt-1'> Ques: {index+1}/{lastIndex}</div>
@@ -306,7 +308,7 @@ function TestPage() {
                 ))
             }
          </div>
-         <div className='w-full md:w-5/12 mx-auto min-h-screen'>
+         <div className='w-full md:w-5/12 mx-auto min-h-[90vh]'>
                 {
                     <div className=' mt-8 '>
                         <div className='font-semibold text-xl'>{posts[index].question}</div>
