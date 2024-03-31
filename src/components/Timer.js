@@ -3,13 +3,23 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {db} from "../config/firebase";
 import {collection, addDoc} from "firebase/firestore";
+import testdata from '../data/livetest.json'
 
-const Timer = ({testid, paper, lastIndex, posts}) => {
+const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, totalMinutes, totalSeconds}) => {
     const navigate = useNavigate();
+    
     const [minutes, setMinutes ] = useState(1);
-    const [seconds, setSeconds ] =  useState(10);
+    const [seconds, setSeconds ] =  useState(12);
 
     const testCollectionRef = collection(db, "tests");
+    useEffect(()=> {
+
+            const data1 = testdata.filter((x) => x.testid == testid);
+            setMinutes(data1[0].timeInMinutes);
+            setSeconds(data1[0].timeInSeconds);
+        
+    },[]);
+
 
     useEffect(()=>{
     let myInterval = setInterval(() => {
@@ -23,7 +33,9 @@ const Timer = ({testid, paper, lastIndex, posts}) => {
                     setMinutes(minutes - 1);
                     setSeconds(59);
                 }
-            } 
+            }
+            setRunningMin(minutes);
+            setRunningSec(seconds);
         }, 1000)
         return ()=> {
             clearInterval(myInterval);
@@ -53,21 +65,22 @@ const Timer = ({testid, paper, lastIndex, posts}) => {
             const time = today.toLocaleTimeString();
 
             var resultid = date + '-' + today.getMilliseconds();
+
+            const totalTime = (totalMinutes * 60) + totalSeconds;
+            const runningTime = (minutes * 60) + seconds;
+            const timeTaken = (totalTime - runningTime);
             
             const user = localStorage.getItem("currentUser");
 
                 try{
                     await addDoc(testCollectionRef, {
-                        name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid
+                        name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid, timeTaken:timeTaken
                     });
                 }
                 catch(err)
                 {
                     console.log(err);
                 }
-
-            const timeTaken = `${minutes}:${seconds}`
-            console.log(timeTaken);
 
             let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
             navigate(path);
@@ -76,7 +89,7 @@ const Timer = ({testid, paper, lastIndex, posts}) => {
         <div>
         { minutes == 0 && seconds == 0
             ? <div>{submitTest()}</div>
-            : <h1 className='text-bold text-2xl sm:text-3xl'> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
+            : <h1 className='text-bold text-xl sm:text-2xl'> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
         }
         </div>
     )

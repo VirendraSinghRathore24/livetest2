@@ -43,6 +43,9 @@ async function onClickHandler(e)
                 <li><NavLink className="py-5 flase text-lg leading-5 relative group flex gap-1 items-center link" to="/dashboard" end>
                 <span>Dashboard</span>
                 </NavLink></li>  
+                <li><NavLink className="py-5 flase text-lg leading-5 relative group flex gap-1 items-center link" to="/leaderboard" end>
+                <span>LeaderBoard</span>
+                </NavLink></li> 
                 <div>
                   {
                     localStorage.getItem("currentUser") ? (<li><NavLink onClick={handleLogoutClick} className="py-5 flase text-lg leading-5 relative group flex gap-1 items-center link cursor-pointer" to="/dashboard" end>
@@ -80,6 +83,7 @@ async function onClickHandler(e)
         <ul className="flex flex-col items-center gap-y-6 md:hidden select-none text-xl">
         <li className="text-center"><NavLink class="leading-5" to="/" onClick={onClickHandler}>Home</NavLink></li>
         <li className="text-center"><NavLink class="leading-5" to="/dashboard" onClick={onClickHandler}>Dashboard</NavLink></li>
+        <li className="text-center"><NavLink class="leading-5" to="/leaderboard" onClick={onClickHandler}>LeaderBoard</NavLink></li>
         <div onClick={onClickHandler}>
                   {
                     localStorage.getItem("currentUser") ? (<li><div onClick={handleLogoutClick} className="py-5 flase text-xl leading-5 relative group flex gap-1 items-center link cursor-pointer" to="/dashboard" end>

@@ -89,8 +89,8 @@
     },
     {
         "testid" : 2,
-        "timeInMinutes" : 0,
-        "timeInSeconds" : 30,
+        "timeInMinutes" : 1,
+        "timeInSeconds" : 10,
         "paper" :
         [
             {
@@ -113,8 +113,8 @@
     },
     {
         "testid" : 3,
-        "timeInMinutes" : 0,
-        "timeInSeconds" : 24,
+        "timeInMinutes" : 1,
+        "timeInSeconds" : 23,
         "paper" :
         [
             {

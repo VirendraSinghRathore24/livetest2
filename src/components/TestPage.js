@@ -26,36 +26,18 @@ function TestPage() {
   const [fourthIndex, setFourthIndex] = useState(false);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [runningMin, setRunningMin] = useState(0);
+  const [runningSec, setRunningSec] = useState(0);
 
   function fetchTestData()
   {
       const data1 = testdata.filter((x) => x.testid == testid);
       setPosts(data1[0].paper);
-    //   setMinutes(data1[0].timeInMinutes);
-    //   setSeconds(data1[0].timeInSeconds);
+      setMinutes(data1[0].timeInMinutes);
+      setSeconds(data1[0].timeInSeconds);
   
       setLastIndex(data1[0].paper.length);
   }
-
-  function completedTestTime()
-  {
-    let myInterval = setInterval(() => {
-        if (seconds > 0) {
-            setSeconds(seconds + 1);
-        }
-        if (seconds === 0) {
-            if (minutes === 0) {
-                clearInterval(myInterval)
-            } else {
-                setMinutes(minutes + 1);
-                setSeconds(59);
-            }
-        } 
-    }, 1000)
-    return ()=> {
-        clearInterval(myInterval);
-    };
-};
 
   const handlePrevClick = (ind) => {
     setIndex(index - 1);
@@ -223,12 +205,16 @@ function TestPage() {
     const time = today.toLocaleTimeString();
 
     var resultid = date + '-' + today.getMilliseconds();
+
+    const totalTime = (minutes * 60) + seconds;
+    const runningTime = (runningMin * 60) + runningSec;
+    const timeTaken = (totalTime - runningTime);
     
     const user = localStorage.getItem("currentUser");
 
         try{
              await addDoc(testCollectionRef, {
-                name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid
+                name: (user + "data"), testid : testid, paper : paper, result : result, date:date, time:time, ans:ans, resultid:resultid, timeTaken:timeTaken
             });
         }
         catch(err)
@@ -236,21 +222,27 @@ function TestPage() {
             console.log(err);
         }
 
-    const timeTaken = `${minutes}:${seconds}`
-    console.log(timeTaken);
+   
+    // console.log("minutes => " + (minutes * 60));
+    // console.log("seconds => " + seconds);
+    // console.log("runningMin => " + (runningMin * 60));
+    // console.log("runningSec => " + runningSec);
+
+    
+    //console.log("timeTaken => " + timeTaken);
+    
 
     let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
     navigate(path);
   }
 
-  let pending = false;
   useEffect(() => {
     window.scroll(0,0);
     for(var i = 0; i <= lastIndex; i++)
     {
         localStorage.removeItem(testid +"#"+ (i+1))
     }
-    completedTestTime();
+    //completedTestTime();
     fetchTestData();
     
   }, []);
@@ -259,7 +251,11 @@ function TestPage() {
 
   return (
     <div>
-    <div className='flex justify-end mr-5 mt-2'><div className=' '><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} /></div></div>
+    <div className='flex justify-between shadow-lg p-2'>
+        <div className='flex justify-center'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds}/></div>
+        <div className='text-lg md:text-xl '> Ques: {index+1}/{lastIndex}</div>
+        <button className=' bg-green-500 text-white px-4 py-1 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
+    </div>
     <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
     <div className='flex flex-wrap w-full md:w-4/12 mx-auto mt-8 gap-x-0 md:gap-x-4'>
             {

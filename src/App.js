@@ -5,6 +5,7 @@ import TestResult from "./components/TestResult";
 import Header from "./components/Header";
 import ConditionPage from "./components/ConditionPage";
 import Dashboard from "./components/Dashboard";
+import LeaderBoard from "./components/LeaderBoard";
 import Login from "./components/Login";
 import Timer from "./components/Timer";
 import SignupForm from "./components/SignupForm";
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/testresult" element={<TestResult/>}/>
           <Route path="/testcondition" element={<ConditionPage/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
+          <Route path="/leaderboard" element={<LeaderBoard/>}/>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
 
           <Route path="/auth" element={<Auth/>}/>

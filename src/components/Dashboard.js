@@ -106,7 +106,7 @@ const handleLeaderBoard = async () =>
                 <tr className="border-2 border-black">
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2  align-baseline text-center text-wrap ">{index+1}</td>
                   <td className="whitespace-wrap text-md text-blue-600 font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">
-                      <NavLink to={`/testresult?testid=${p.testid}&paper=${p.paper}&&score=${p.result}&&date=${p.date}&&resultid=${p.resultid}`}>{p.paper}</NavLink>
+                      <NavLink to={`/testresult?testid=${p.testid}&paper=${p.paper}&&score=${p.result}&&date=${p.date}&&time=${p.time}&&resultid=${p.resultid}`}>{p.paper}</NavLink>
                   </td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.result} %</td>
                   {
