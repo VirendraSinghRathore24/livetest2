@@ -292,7 +292,7 @@ function TestPage({setHideHeader}) {
                     <div className="absolute left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden pointer-events-auto 
                     visible">
      
-                <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 md:gap-x-4 px-2'>
+                <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 md:gap-x-4 justify-center'>
                 {
                     posts.map((d, index) => (
                         <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
