@@ -52,10 +52,6 @@ function ConditionPage({setHideHeader}) {
             <div>• <span className='font-semibold'>Multiple answer choices </span> are given for each question in the test.</div>
             <div>• You have to choose the <span className='font-semibold'>best option.</span></div>
             <div>• After completing test, you can see you result.</div>
-            <div>• There are <span className='font-semibold'>10 questions</span> in the test.</div>
-            <div>• There is <span className='font-semibold'>no negative marking for wrong answers.</span></div>
-            <div>• There is <span className='font-semibold'>time running</span> to complete the test.</div>
-            <div>• Mode of test is <span className='font-semibold'>English only.</span></div>
             <div className='flex item-center justify-center gap-x-8'>
                 <button className=' bg-blue-800 text-white px-6 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleCancelClick()}>Cancel</button>
                 <button className=' bg-green-800 text-white px-8 py-2 font-xl rounded-md sm:mb-0' onClick={() => {setIsOpen(true)}}>Start</button>
