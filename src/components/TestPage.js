@@ -256,6 +256,7 @@ function TestPage({setHideHeader}) {
     }
     //completedTestTime();
     fetchTestData();
+    setHideHeader(true);
     
   }, []);
   
@@ -271,19 +272,15 @@ function TestPage({setHideHeader}) {
     </div>
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
     <div className="flex items-center justify-between md:hidden w-full bg-gray-100 mx-auto">
-    <div className='p-2 text-xl font-semibold' onClick={handleBack}>Back</div>
+    <div className='p-2 text-xl font-semibold text-blue-600' onClick={handleBack}>Back</div>
     <div>
               {
                 open ? (
-                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between p-[0.8rem] md:hidden" onClick={() => setOpen(false)}>
-                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
-                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
-                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2 md:hidden" onClick={() => setOpen(false)}>
+                    <img src="../../images/expand_down.svg" alt="Logo" width={45} loading='lazy'/>
                 </div>) : (
-                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between p-[0.8rem] md:hidden" onClick={() => setOpen(true)}>
-                <span className="w-8 py-[2px] rounded-md absolute top-1/2 rotate-45 bg-stone-600"></span>
-                <span className="w-8 py-[2px] rounded-md absolute top-1/2 opacity-0 bg-stone-600"></span>
-                <span className="w-8 py-[2px] rounded-md absolute top-1/2 -rotate-45 bg-stone-600"></span>
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2  md:hidden" onClick={() => setOpen(true)}>
+                <img src="../../images/expand_up.svg" alt="Logo" width={45} loading='lazy'/>
                 </div>
                 )
               }
@@ -309,7 +306,7 @@ function TestPage({setHideHeader}) {
               
               </div>
          <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
-         <div className='flex flex-wrap w-full md:w-4/12 mx-auto mt-8 gap-x-0 md:gap-x-4 max-md:hidden'>
+         <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4 max-md:hidden'>
             {
                 posts.map((d, index) => (
                     <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
@@ -319,7 +316,7 @@ function TestPage({setHideHeader}) {
          </div>
          <div className='w-full md:w-5/12 mx-auto min-h-[90vh] mt-28'>
                 {
-                    <div className=' mt-8 '>
+                    <div className=''>
                         <div className='font-semibold text-xl'>{posts[index].question}</div>
                         <div className='flex flex-col mt-4 gap-y-4'>
                         <div onClick={() => handleClick(1, index)}>

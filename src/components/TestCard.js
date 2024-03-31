@@ -48,8 +48,8 @@ const handleButtonClick = (ind) =>
   return (
     <div>
     {
-        localStorage.getItem(testid + "#" + (d+1)) ? (<button className=' bg-green-600 text-white px-4 py-2 font-xl shadow-md rounded-md sm:mb-0 mr-4 mb-4' onClick={() => handleButtonClick(d)}>{d+1}</button>)
-            : (<button className=' bg-blue-600 text-white px-4 py-2 font-xl shadow-md rounded-md sm:mb-0 mr-4 mb-4' onClick={() => handleButtonClick(d)}>{d+1}</button>)
+        localStorage.getItem(testid + "#" + (d+1)) ? (<button className=' bg-green-600 h-10 w-10 text-white font-xl shadow-md rounded-md sm:mb-0 mr-4 mb-4' onClick={() => handleButtonClick(d)}>{d+1}</button>)
+            : (<button className=' bg-blue-600 text-white h-10 w-10 font-xl shadow-md rounded-md sm:mb-0 mr-4 mb-4' onClick={() => handleButtonClick(d)}>{d+1}</button>)
     }
         
     </div>
