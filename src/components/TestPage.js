@@ -205,7 +205,7 @@ function TestPage({setHideHeader}) {
         ans.push({resUser});
     }
 
-    var result = (c/lastIndex)*100;
+    var result = ((c/lastIndex)*100).toFixed(2);
      
     var today = new Date();
     const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
