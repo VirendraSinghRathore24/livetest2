@@ -42,9 +42,9 @@ function TestPage({setHideHeader}) {
   }
 
   const handlePrevClick = (ind) => {
-    setOpen(true);
+    //setOpen(true);
     setIndex(index - 1);
-    window.scroll(0,0);
+    //window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
 
@@ -87,7 +87,7 @@ function TestPage({setHideHeader}) {
   }
  
   const handleResetClick = (ind) => {
-    setOpen(true);
+    //setOpen(true);
 
     localStorage.removeItem(testid + "#" + ind);
         setFirstIndex(false);
@@ -96,9 +96,9 @@ function TestPage({setHideHeader}) {
         setFourthIndex(false);
   }
   const handleNextClick = (ind) => {
-    setOpen(true);
+    //setOpen(true);
     setIndex(index + 1);
-    window.scroll(0,0);
+    //window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
 
