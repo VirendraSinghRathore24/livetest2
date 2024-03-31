@@ -26,7 +26,7 @@ async function onClickHandler(e)
 }
   return (
     <div >
-       <div className="flex top-0 justify-between items-center  mx-auto w-full px-5
+       <div className="flex top-0 justify-between items-center mx-auto w-full h-20 px-5
        bg-blue-200">
        <Link to="/">
            <div className="flex">

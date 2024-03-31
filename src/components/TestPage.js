@@ -264,10 +264,10 @@ function TestPage({setHideHeader}) {
 
   return (
     <div className=''>
-    <div className='w-full mx-auto top-0  fixed'>
-    <div className='flex justify-between shadow-lg p-2'>
+    <div className='w-full mx-auto top-0 fixed'>
+    <div className='flex justify-between shadow-lg bg-blue-200 p-2'>
         <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
-        <div className='text-lg md:text-xl mt-1'> Ques: {index+1}/{lastIndex}</div>
+        <div className='text-lg md:text-xl mt-1 '> Ques: {index+1}/{lastIndex}</div>
         <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
     </div>
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
@@ -314,7 +314,7 @@ function TestPage({setHideHeader}) {
                 ))
             }
          </div>
-         <div className='w-full md:w-5/12 mx-auto min-h-[90vh] mt-28'>
+         <div className='w-full md:w-5/12 mx-auto min-h-[90vh] mt-32'>
                 {
                     <div className=''>
                         <div className='font-semibold text-xl'>{posts[index].question}</div>
