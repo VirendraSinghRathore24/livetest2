@@ -1,11 +1,11 @@
 import React from 'react'
 
-function TestCard({d, setIndex, testid, setFirstIndex, setSecondIndex, setThirdIndex, setFourthIndex}) {
+function TestCard({d, setIndex, testid, setFirstIndex, setSecondIndex, setThirdIndex, setFourthIndex, setOpen}) {
 
 const handleButtonClick = (ind) =>
   {
     setIndex(ind);
-
+    setOpen(true);
     let selectedIndex = localStorage.getItem(testid + "#" + (ind+1));
 
     if(selectedIndex == 1)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ReactModal from 'react-modal';
 
@@ -22,6 +22,9 @@ function ConditionPage() {
         window.location.href = `/`
     }
 
+    useEffect(() => {
+        window.scroll(0,0);
+      }, []);
   return (
     <div className='p-4'>
         <ReactModal isOpen={isOpen}

@@ -16,7 +16,7 @@ function LeaderBoard() {
        setLoading(true);
       
         const currentUser = localStorage.getItem("currentUser");
-        var q = query(testCollectionRef, orderBy('result', 'desc'))
+        var q = query(testCollectionRef, orderBy('timeTaken'))
 
         const pp = await getDocs(q);
         
@@ -55,7 +55,7 @@ function LeaderBoard() {
                   <th scope="col" className="px-1 py-2 text-center border-r-2 border-black">Email</th>
                   <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Paper</th>
                   <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Score</th>
-                  
+                  <th scope="col" className="px-1 py-2 text-center border-r-2 border-black" >Time Taken</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@ function LeaderBoard() {
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.name.substring(0, p.name.length -4)}</td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.paper}</td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.result} %</td>
-                 
+                  <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.timeTaken} sec</td>
                   
                   
                 </tr>

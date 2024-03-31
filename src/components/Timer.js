@@ -15,7 +15,8 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
     useEffect(()=> {
 
             const data1 = testdata.filter((x) => x.testid == testid);
-            setMinutes(data1[0].timeInMinutes);
+            //setMinutes(data1[0].timeInMinutes);
+            setMinutes(100);
             setSeconds(data1[0].timeInSeconds);
         
     },[]);
@@ -89,7 +90,7 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
         <div>
         { minutes == 0 && seconds == 0
             ? <div>{submitTest()}</div>
-            : <h1 className='text-bold text-xl sm:text-2xl'> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
+            : <h1 className='font-semibold text-xl sm:text-2xl'> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
         }
         </div>
     )

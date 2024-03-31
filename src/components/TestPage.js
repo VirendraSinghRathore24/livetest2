@@ -29,6 +29,8 @@ function TestPage() {
   const [runningMin, setRunningMin] = useState(0);
   const [runningSec, setRunningSec] = useState(0);
 
+  const [open, setOpen] = useState(false);
+
   function fetchTestData()
   {
       const data1 = testdata.filter((x) => x.testid == testid);
@@ -40,6 +42,7 @@ function TestPage() {
   }
 
   const handlePrevClick = (ind) => {
+    setOpen(true);
     setIndex(index - 1);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
@@ -83,7 +86,7 @@ function TestPage() {
   }
  
   const handleResetClick = (ind) => {
-    console.log("Sanju " + ind);
+    setOpen(true);
 
     localStorage.removeItem(testid + "#" + ind);
         setFirstIndex(false);
@@ -92,7 +95,7 @@ function TestPage() {
         setFourthIndex(false);
   }
   const handleNextClick = (ind) => {
-   
+    setOpen(true);
     setIndex(index + 1);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
@@ -137,6 +140,7 @@ function TestPage() {
  
   
   const handleClick = (e) =>{
+    setOpen(true);
     if(e == 1)
     {
         setFirstIndex(true);
@@ -250,25 +254,62 @@ function TestPage() {
 
 
   return (
-    <div>
-    <div className='flex justify-between shadow-lg p-2'>
-        <div className='flex justify-center'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds}/></div>
-        <div className='text-lg md:text-xl '> Ques: {index+1}/{lastIndex}</div>
-        <button className=' bg-green-500 text-white px-4 py-1 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
+    <div className=''>
+    <div className='flex justify-between shadow-lg p-2 '>
+        <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds}/></div>
+        <div className='text-lg md:text-xl mt-1'> Ques: {index+1}/{lastIndex}</div>
+        <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
     </div>
-    <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
-    <div className='flex flex-wrap w-full md:w-4/12 mx-auto mt-8 gap-x-0 md:gap-x-4'>
+    {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
+    
+    <div className="flex items-center justify-end md:hidden w-full bg-gray-100 mx-auto">
+              {
+                open ? (
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between p-[0.8rem] md:hidden" onClick={() => setOpen(false)}>
+                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
+                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
+                <span className="w-8 py-[2px] rounded-md bg-stone-600"></span>
+                </div>) : (
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between p-[0.8rem] md:hidden" onClick={() => setOpen(true)}>
+                <span className="w-8 py-[2px] rounded-md absolute top-1/2 rotate-45 bg-stone-600"></span>
+                <span className="w-8 py-[2px] rounded-md absolute top-1/2 opacity-0 bg-stone-600"></span>
+                <span className="w-8 py-[2px] rounded-md absolute top-1/2 -rotate-45 bg-stone-600"></span>
+                </div>
+                )
+              }
+              </div>
+              <div>
+                {
+                    !open ? (
+                    <div className="absolute left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden pointer-events-auto 
+                    visible">
+     
+                <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 md:gap-x-4 px-2'>
+                {
+                    posts.map((d, index) => (
+                        <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
+                    ))
+                }
+            </div>
+                    </div>) : (<div></div>)
+                }
+              </div>
+              
+    
+         <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
+         <div className='flex flex-wrap w-full md:w-4/12 mx-auto mt-8 gap-x-0 md:gap-x-4 max-md:hidden'>
             {
                 posts.map((d, index) => (
                     <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
-                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex}/>
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
                 ))
             }
          </div>
-         <div className='w-full md:w-5/12 mx-auto'>
+         <div className='w-full md:w-5/12 mx-auto min-h-screen'>
                 {
                     <div className=' mt-8 '>
-                        <div className='font-semibold text-xl'>Question {index + 1}. {posts[index].question}</div>
+                        <div className='font-semibold text-xl'>{posts[index].question}</div>
                         <div className='flex flex-col mt-4 gap-y-4'>
                         <div onClick={() => handleClick(1, index)}>
                         {
@@ -302,30 +343,56 @@ function TestPage() {
                         <br/>
                     </div>
                 }
-                <div className=' flex justify-between mb-6'>
-                <div>
+                <div className=' flex justify-between mb-6 max-md:hidden'>
+                    <div>
+                        {
+                            index > 0 ? (
+                            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handlePrevClick(index)}>Prev</button>
+                            ) : (<div></div>)
+                        }
+                    </div>  
+                    
+                        <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleResetClick(index + 1)}>Reset</button>
+
+                    
+                    <div>
                     {
-                        index > 0 ? (
-                        <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handlePrevClick(index)}>Prev</button>
+                        index < lastIndex - 1 ? (
+                        <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleNextClick(index + 2)}>Next</button>
+                        ) : 
+                        index == lastIndex - 1 ? (
+                        <button className=' bg-green-500 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
                         ) : (<div></div>)
                     }
-                </div>  
-                
-                    <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleResetClick(index + 1)}>Reset</button>
-
-                
+                    </div>
+                </div>
+                </div>
+            </div>
+               
+                <div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed   md:hidden ">
                 <div>
-                {
-                    index < lastIndex - 1 ? (
-                    <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleNextClick(index + 2)}>Next</button>
-                    ) : 
-                    index == lastIndex - 1 ? (
-                    <button className=' bg-green-500 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
-                    ) : (<div></div>)
-                }
-                </div>
-</div>
-                </div>
+                        {
+                            index > 0 ? (
+                            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handlePrevClick(index)}>Prev</button>
+                            ) : (<div></div>)
+                        }
+                    </div>  
+                    
+                        <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleResetClick(index + 1)}>Reset</button>
+
+                    
+                    <div>
+                    {
+                        index < lastIndex - 1 ? (
+                        <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={() => handleNextClick(index + 2)}>Next</button>
+                        ) : 
+                        index == lastIndex - 1 ? (
+                        <button className=' bg-green-500 text-white px-4 py-2 font-xl rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
+                        ) : (<div></div>)
+                    }
+                    </div>
+     
+                
                 </div>
 
                 <ReactModal isOpen={isOpen}
