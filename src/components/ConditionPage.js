@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ReactModal from 'react-modal';
 
-function ConditionPage() {
+function ConditionPage({setHideHeader}) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -13,6 +13,7 @@ function ConditionPage() {
 
     const handleBegin = () =>
     {
+        setHideHeader(true);
         let path = `/test?testid=${testid}&paper=${paper}`; 
         navigate(path);
     }

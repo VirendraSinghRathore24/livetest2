@@ -8,7 +8,7 @@ import {db} from "../config/firebase";
 import {collection, addDoc} from "firebase/firestore";
 
 
-function TestPage() {
+function TestPage({setHideHeader}) {
   
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -189,6 +189,7 @@ function TestPage() {
   const testCollectionRef = collection(db, "tests");
   const handleSubmitClick = async () =>
   {
+    setHideHeader(false);
     var ans = [];
     let c = 0;
     for(var i = 0; i < lastIndex; i++)
@@ -242,6 +243,11 @@ function TestPage() {
     navigate(path);
   }
 
+  const handleBack = () =>
+  {
+    navigate('/')
+  }
+
   useEffect(() => {
     window.scroll(0,0);
     for(var i = 0; i <= lastIndex; i++)
@@ -256,15 +262,17 @@ function TestPage() {
 
 
   return (
-    <div className='overflow-y-scroll'>
-    <div className='flex justify-between shadow-lg p-2 '>
-        <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds}/></div>
+    <div className=''>
+    <div className='w-full mx-auto top-0  fixed'>
+    <div className='flex justify-between shadow-lg p-2'>
+        <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
         <div className='text-lg md:text-xl mt-1'> Ques: {index+1}/{lastIndex}</div>
         <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
     </div>
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
-    
-    <div className="flex items-center justify-end md:hidden w-full bg-gray-100 mx-auto">
+    <div className="flex items-center justify-between md:hidden w-full bg-gray-100 mx-auto">
+    <div className='p-2 text-xl font-semibold' onClick={handleBack}>Back</div>
+    <div>
               {
                 open ? (
                 <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between p-[0.8rem] md:hidden" onClick={() => setOpen(false)}>
@@ -279,6 +287,7 @@ function TestPage() {
                 </div>
                 )
               }
+              </div>
               </div>
               <div>
                 {
@@ -298,7 +307,7 @@ function TestPage() {
                 }
               </div>
               
-    
+              </div>
          <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
          <div className='flex flex-wrap w-full md:w-4/12 mx-auto mt-8 gap-x-0 md:gap-x-4 max-md:hidden'>
             {
@@ -308,7 +317,7 @@ function TestPage() {
                 ))
             }
          </div>
-         <div className='w-full md:w-5/12 mx-auto min-h-[90vh]'>
+         <div className='w-full md:w-5/12 mx-auto min-h-[90vh] mt-28'>
                 {
                     <div className=' mt-8 '>
                         <div className='font-semibold text-xl'>{posts[index].question}</div>
@@ -371,7 +380,7 @@ function TestPage() {
                 </div>
             </div>
                
-                <div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed   md:hidden ">
+                <div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed md:hidden ">
                 <div>
                         {
                             index > 0 ? (

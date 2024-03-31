@@ -5,7 +5,7 @@ import {db} from "../config/firebase";
 import {collection, addDoc} from "firebase/firestore";
 import testdata from '../data/livetest.json'
 
-const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, totalMinutes, totalSeconds}) => {
+const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, totalMinutes, totalSeconds, setHideHeader}) => {
     const navigate = useNavigate();
     
     const [minutes, setMinutes ] = useState(1);
@@ -44,6 +44,7 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
     });
 
     const submitTest = async () =>{
+        setHideHeader(false);
             var ans = [];
             let c = 0;
             for(var i = 0; i < lastIndex; i++)

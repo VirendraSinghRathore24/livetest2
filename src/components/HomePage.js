@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-function HomePage() {
+function HomePage({setHideHeader}) {
     const navigate = useNavigate();
     const handleClick = (testid, paper) => 
     {
@@ -20,10 +20,11 @@ function HomePage() {
 
     const handleRegisterNow = async () => 
     {
-      
+
     }
    
     useEffect(() => {
+      setHideHeader(false);
       window.scroll(0,0);
     }, []);
 

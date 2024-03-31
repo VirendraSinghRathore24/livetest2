@@ -14,20 +14,26 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/ForgotPassword";
 import  Auth from "./components/auth";
+import { useState } from "react";
 
 export default function App() {
-
+  const [hideHeader, setHideHeader] = useState(false);
   return (
     <div className="w-full h-screen">
-      <Header/>
+    <div>
+      {
+        hideHeader ? (<></>) : ( <Header/>)
+      }
+    </div>
+     
       <Routes>
-          <Route path="/" element={<HomePage/>}/>
+          <Route path="/" element={<HomePage setHideHeader={setHideHeader}/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/timer" element={<Timer/>}/>
-          <Route path="/test" element={<TestPage/>}/>
+          <Route path="/test" element={<TestPage setHideHeader={setHideHeader}/>}/>
           <Route path="/testresult" element={<TestResult/>}/>
-          <Route path="/testcondition" element={<ConditionPage/>}/>
+          <Route path="/testcondition" element={<ConditionPage setHideHeader={setHideHeader}/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/leaderboard" element={<LeaderBoard/>}/>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
