@@ -9,7 +9,8 @@ function AddTest() {
 
     const [formData, setFormData] = useState({
         testname:"", duration:"", testdate:"", question:"", 
-        a:"", b:"", c:"", d:"", ans:""
+        a:"", b:"", c:"", d:"", ans:"",
+        questionHindi:"", aHindi:"", bHindi:"", cHindi:"", dHindi:""
     })
 
     const testCollectionRef = collection(db, "livetests");
@@ -73,7 +74,7 @@ function AddTest() {
                 const liveTestDoc = doc(db, "livetests", liveTestDocData[0].id);
 
                 let problem = liveTestDocData[0].problem !== undefined ? liveTestDocData[0].problem : [];
-                problem.push({question:formData.question, a:formData.a, b:formData.b, c:formData.c, d:formData.d, ans:formData.ans})
+                problem.push({question:formData.question, a:formData.a, b:formData.b, c:formData.c, d:formData.d, ans:formData.ans, questionHindi:formData.questionHindi, aHindi:formData.aHindi, bHindi:formData.bHindi, cHindi:formData.cHindi, dHindi:formData.dHindi})
 
                 await updateDoc(liveTestDoc, {
                     problem:problem
@@ -109,7 +110,7 @@ function AddTest() {
   return (
     <div>
     {
-        !added ? 
+        added ? 
         (
         <div className='flex justify-between w-11/12 mx-auto'>
             <form onSubmit={handleSubmit2}>
@@ -118,6 +119,13 @@ function AddTest() {
                             <label className='w-full'>
                                 <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Question<sup className='text-red-600'>*</sup></p>
                                 <input required type="text" name="question" onChange={changeHandler} placeholder='Enter question' value={formData.question}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
+                            </label>
+                    </div>
+                    <div className='flex justify-between gap-x-4 mt-[20px] border-2 w-full mx-auto'>
+                            <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Question Hindi<sup className='text-red-600'>*</sup></p>
+                                <input required type="text" name="questionHindi" onChange={changeHandler} placeholder='Enter question' value={formData.questionHindi}
                                     className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
                             </label>
                     </div>
@@ -130,8 +138,22 @@ function AddTest() {
                     </div>
                     <div className='flex justify-between gap-x-4 mt-[20px]'>
                             <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option a Hindi<sup className='text-red-600'>*</sup></p>
+                                <input required type="text" name="aHindi" onChange={changeHandler} placeholder='Enter option a' value={formData.aHindi}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
+                            </label>
+                    </div>
+                    <div className='flex justify-between gap-x-4 mt-[20px]'>
+                            <label className='w-full'>
                                 <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option b<sup className='text-red-600'>*</sup></p>
                                 <input required type="text" name="b" onChange={changeHandler} placeholder='Enter option b' value={formData.b}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
+                            </label>
+                    </div>
+                    <div className='flex justify-between gap-x-4 mt-[20px]'>
+                            <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option b Hindi<sup className='text-red-600'>*</sup></p>
+                                <input required type="text" name="bHindi" onChange={changeHandler} placeholder='Enter option a' value={formData.bHindi}
                                     className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
                             </label>
                     </div>
@@ -144,8 +166,22 @@ function AddTest() {
                     </div>
                     <div className='flex justify-between gap-x-4 mt-[20px]'>
                             <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option c Hindi<sup className='text-red-600'>*</sup></p>
+                                <input required type="text" name="cHindi" onChange={changeHandler} placeholder='Enter option a' value={formData.cHindi}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
+                            </label>
+                    </div>
+                    <div className='flex justify-between gap-x-4 mt-[20px]'>
+                            <label className='w-full'>
                                 <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option d<sup className='text-red-600'>*</sup></p>
                                 <input required type="text" name="d" onChange={changeHandler} placeholder='Enter option d' value={formData.d}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
+                            </label>
+                    </div>
+                    <div className='flex justify-between gap-x-4 mt-[20px]'>
+                            <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option d Hindi<sup className='text-red-600'>*</sup></p>
+                                <input required type="text" name="dHindi" onChange={changeHandler} placeholder='Enter option d' value={formData.dHindi}
                                     className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 w-full p-[12px]'/>
                             </label>
                     </div>

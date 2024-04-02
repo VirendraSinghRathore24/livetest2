@@ -31,7 +31,12 @@ function LiveTestCurrentPage({setHideHeader}) {
   const [loading, setLoading] = useState(false);
 
   const [open, setOpen] = useState(true);
+  const [isHindi, setIsHindi] = useState(true);
 
+  function handleTranslate()
+  {
+    setIsHindi(!isHindi);
+  }
   
   const fetchLiveTestData = async () =>
   {
@@ -289,6 +294,9 @@ function LiveTestCurrentPage({setHideHeader}) {
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
     <div className="flex items-center justify-between md:hidden w-full bg-gray-100 mx-auto">
     <div className='p-2 text-xl font-semibold text-blue-600' onClick={handleBack}>Back</div>
+    <div className="relative md:hidden" onClick={handleTranslate}>
+            <img src="../../images/translate.svg" width={35} alt="Logo" loading='lazy'/>
+    </div>
     <div>
               {
                 open ? (
@@ -331,6 +339,9 @@ function LiveTestCurrentPage({setHideHeader}) {
             }
          </div>
          <div className='w-full md:w-5/12 mx-auto mb-20 mt-32'>
+         <div>
+            {
+                isHindi ? ( <div>
                 {
                     posts != null && posts.length > 0 && !loading ? (
                     <div className=''>
@@ -366,8 +377,50 @@ function LiveTestCurrentPage({setHideHeader}) {
                         </div>
                         </div>
                         <br/>
-                    </div>) : (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>)
+                    </div>) : (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>)   
                 }
+                </div>) : ( <div>
+                {
+                    posts != null && posts.length > 0 && !loading ? (
+                    <div className=''>
+                        <div className='font-semibold text-xl'>{posts[index].questionHindi}</div>
+                        <div className='flex flex-col mt-4 gap-y-4'>
+                        <div onClick={() => handleClick(1, index)}>
+                        {
+                            !firstIndex || localStorage.getItem(index) === 1 ? (
+                                <div className='border-2 w-92 p-2 hover:bg-indigo-300 cursor-pointer'>a. {posts[index].aHindi}</div>
+                            ) : (<div className='border-2 w-92 p-2 bg-green-300 cursor-pointer'>a. {posts[index].aHindi}</div>)
+                        }
+                        </div>
+                        <div onClick={() => handleClick(2, index)}>
+                        {
+                            !secondIndex || localStorage.getItem(index) === 2 ? (
+                                <div className='border-2 w-92 p-2 hover:bg-indigo-300 cursor-pointer'>b. {posts[index].bHindi}</div>
+                            ) : (<div className='border-2 w-92 p-2 bg-green-300 cursor-pointer'>b. {posts[index].bHindi}</div>)
+                        }
+                        </div>
+                        <div onClick={() => handleClick(3, index)}>
+                        {
+                            !thirdIndex || localStorage.getItem(index) === 3 ? (
+                                <div className='border-2 w-92 p-2 hover:bg-indigo-300 cursor-pointer'>c. {posts[index].cHindi}</div>
+                            ) : (<div className='border-2 w-92 p-2 bg-green-300 cursor-pointer'>c. {posts[index].cHindi}</div>)
+                        }
+                        </div>
+                        <div onClick={() => handleClick(4, index)}>
+                        {
+                            !fourthIndex || localStorage.getItem(index) === 4 ? (
+                                <div className='border-2 w-92 p-2 hover:bg-indigo-300 cursor-pointer'>d. {posts[index].dHindi}</div>
+                            ) : (<div className='border-2 w-92 p-2 bg-green-300 cursor-pointer'>d. {posts[index].dHindi}</div>)
+                        }
+                        </div>
+                        </div>
+                        <br/>
+                    </div>) : (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>)   
+                }
+                </div>)
+            }
+         </div>
+           
                 <div className=' flex justify-between mb-6 max-md:hidden'>
                     <div>
                         {

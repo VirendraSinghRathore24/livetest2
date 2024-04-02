@@ -172,9 +172,6 @@ function TestPage({setHideHeader}) {
         setFourthIndex(true);
     }
     localStorage.setItem(testid +"#"+(index+1), e);
-    console.log('Stored Values')
-    console.log(testid +"#"+(index+1)+ " => " + e)
-    
   }
  
   const handleSubmitClick1 = () =>
@@ -273,6 +270,9 @@ function TestPage({setHideHeader}) {
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}
     <div className="flex items-center justify-between md:hidden w-full bg-gray-100 mx-auto">
     <div className='p-2 text-xl font-semibold text-blue-600' onClick={handleBack}>Back</div>
+    <div className="relative md:hidden">
+            <img src="../../images/translate.svg" width={35} alt="Logo" loading='lazy'/>
+    </div>
     <div>
               {
                 open ? (
