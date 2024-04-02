@@ -114,18 +114,18 @@ function HomePage({setHideHeader}) {
         <div className='text-4xl md:text-5xl font-bold text-blue-600 text-center'>Upcoming Contest</div>
         {
           !isPublished ? (<div className='text-xl font-semibold'>No Live Contest</div>) : (<div>
-          <div>
+          <div className='text-center'>
           {
             posts.map((p, index) => (
               <div>
-                <div className='text-3xl font-bold text-green-600'>{p.testname}</div>
-                <div className='text-2xl'>Test Day - {p.date}</div>
-                <div className='text-2xl'>Duration - {p.duration} </div>
+                <div className='text-4xl font-bold text-green-600'>{p.testname}</div>
+                <div className='text-2xl mt-2'>Test Day - {p.date}</div>
+                <div className='text-2xl mt-1'>Duration - {p.duration} </div>
               </div>
             ))
           }
           </div>
-          <div className='w-full mx-auto'><button onClick={handleRegisterNow} className='text-black text-3xl gap-x-1 bg-yellow-500 w-full rounded-md py-2 hover:bg-green-400 hover:text-blue-600 hover:scale-110 transition duration-300 ease-in'>Register Now</button></div>
+          <div className='w-full mx-auto'><button onClick={handleRegisterNow} className='text-black mt-4 text-3xl gap-x-1 bg-yellow-500 w-full rounded-md py-1 hover:bg-green-400 hover:text-blue-600 hover:scale-110 transition duration-300 ease-in'>Register Now</button></div>
         </div>)}
       </div>
       <div class="flex items-center mx-auto text-center border-t border-brColor pt-4 w-8/12"></div>

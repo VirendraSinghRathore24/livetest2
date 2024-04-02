@@ -289,6 +289,9 @@ function LiveTestCurrentPage({setHideHeader}) {
     <div className='flex justify-between shadow-lg bg-blue-200 p-2'>
         <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
         <div className='text-lg md:text-xl mt-1 '> Ques: {index+1}/{lastIndex}</div>
+        <div className="relative max-md:hidden" onClick={handleTranslate}>
+            <img src="../../images/translate.svg" width={35} alt="Logo" loading='lazy'/>
+        </div>
         <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
     </div>
     {/* <div className='flex justify-end mt-2 md:px-4'><button className='bg-blue-600 text-white px-4 py-2 text-md rounded-md sm:mb-0 hover:scale-110 transition duration-300 ease-in hover:bg-green-500' onClick={handleSubmitClick1}>N</button></div> */}

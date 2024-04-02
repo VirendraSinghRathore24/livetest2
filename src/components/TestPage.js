@@ -262,7 +262,7 @@ function TestPage({setHideHeader}) {
   return (
     <div className=''>
     <div className='w-full mx-auto top-0 fixed'>
-    <div className='flex justify-between shadow-lg bg-blue-200 p-2'>
+    <div className='flex justify-between shadow-md bg-blue-200 p-2'>
         <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
         <div className='text-lg md:text-xl mt-1 '> Ques: {index+1}/{lastIndex}</div>
         <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
@@ -292,7 +292,7 @@ function TestPage({setHideHeader}) {
                     <div className="absolute left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden pointer-events-auto 
                     visible">
      
-                <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 md:gap-x-4 justify-center'>
+                <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 gap-y-2 md:gap-x-4 justify-center'>
                 {
                     posts.map((d, index) => (
                         <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
