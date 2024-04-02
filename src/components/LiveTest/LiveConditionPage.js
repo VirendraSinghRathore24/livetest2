@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import ReactModal from 'react-modal';
 
 
-function ConditionPage({setHideHeader}) {
-    const [isOpen, setIsOpen] = useState(false);
+function LiveConditionPage({setHideHeader}) {
+    const [isOpen, setIsOpen] = useState(false);    
     const [searchParams, setSearchParams] = useSearchParams();
-
-   
 
     let navigate = useNavigate();
 
     const testid = searchParams.get('testid');
     const paper = searchParams.get('paper').replaceAll('%20', ' ');
-    const testtype = searchParams.get('testtype');
-
-
 
     const handleBegin = () =>
     {
         setHideHeader(true);
       
-
-        let path = `/test?testid=${testid}&paper=${paper}&testype=${testtype}`; 
+        let path = `/livetest?testid=${testid}&paper=${paper}`; 
         navigate(path);
     }
 
@@ -70,4 +64,4 @@ function ConditionPage({setHideHeader}) {
   )
 }
 
-export default ConditionPage
+export default LiveConditionPage

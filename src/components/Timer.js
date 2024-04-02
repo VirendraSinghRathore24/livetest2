@@ -17,7 +17,7 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
             const data1 = testdata.filter((x) => x.testid == testid);
             //setMinutes(data1[0].timeInMinutes);
             setMinutes(100);
-            setSeconds(data1[0].timeInSeconds);
+            setSeconds(20);
         
     },[]);
 

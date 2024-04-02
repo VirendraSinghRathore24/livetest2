@@ -15,6 +15,11 @@ import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./components/ForgotPassword";
 import  Auth from "./components/auth";
 import { useState } from "react";
+import AddTest from "./components/admin/AddTest";
+import LiveTestPage from "./components/admin/LiveTestPage";
+import LiveTestCurrentPage from "./components/LiveTest/LiveTestCurrentPage";
+import LiveTestResult from "./components/LiveTest/LiveTestResult";
+import LiveConditionPage from "./components/LiveTest/LiveConditionPage";
 
 export default function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -32,12 +37,16 @@ export default function App() {
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/timer" element={<Timer/>}/>
           <Route path="/test" element={<TestPage setHideHeader={setHideHeader}/>}/>
+          <Route path="/livetest" element={<LiveTestCurrentPage setHideHeader={setHideHeader}/>}/>
           <Route path="/testresult" element={<TestResult/>}/>
           <Route path="/testcondition" element={<ConditionPage setHideHeader={setHideHeader}/>}/>
+          <Route path="/livetestcondition" element={<LiveConditionPage setHideHeader={setHideHeader}/>}/>
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/leaderboard" element={<LeaderBoard/>}/>
           <Route path="/forgotpassword" element={<ForgotPassword/>}/>
-
+          <Route path="/admin/addtest" element={<AddTest/>}/>
+          <Route path="/admin/livetest" element={<LiveTestPage/>}/>
+          <Route path="/livetestresult" element={<LiveTestResult/>}/>
           <Route path="/auth" element={<Auth/>}/>
       </Routes>
       <ToastContainer/>
