@@ -5,7 +5,8 @@ import TestCard from '../TestCard';
 import Timer from '../Timer';
 import ReactModal from 'react-modal';
 import {db} from "../../config/firebase";
-import {collection, addDoc, getDocs} from "firebase/firestore";
+import {collection, addDoc, getDocs, doc, updateDoc, query, where, DocumentReference} from "firebase/firestore";
+import LiveTestTimer from './LiveTestTimer';
 
 function LiveTestCurrentPage({setHideHeader}) {
   
@@ -206,6 +207,7 @@ function LiveTestCurrentPage({setHideHeader}) {
     }
 
   const testCollectionRef = collection(db, "livetestcurrent");
+  const testCollectionRef1 = collection(db, "livetestcount");
   const handleSubmitClick = async () =>
   {
     setHideHeader(false);
@@ -249,6 +251,8 @@ function LiveTestCurrentPage({setHideHeader}) {
             console.log(err);
         }
 
+        //updateLiveTestCount(user);
+        
    
     // console.log("minutes => " + (minutes * 60));
     // console.log("seconds => " + seconds);
@@ -263,6 +267,48 @@ function LiveTestCurrentPage({setHideHeader}) {
     navigate(path);
   }
 
+  const updateLiveTestCount = async (user) => 
+  {
+        try
+        {
+            var data = await getDocs(testCollectionRef1);
+            console.log(data.docs.length)
+
+            if(data.docs.length === 0)
+            {
+                await addDoc(testCollectionRef1, {
+                    name : user, livetestcount : 1
+                });
+            }
+            else
+            {
+                // get all docs
+                var q = query(testCollectionRef1, where('name', '==', user));
+                const pp = await getDocs(q);
+                console.log(q)
+                console.log(pp.docs)
+                var dd;
+                for(var snap of pp.docs)
+                {
+                    dd = snap.data();
+                }
+
+                console.log("ayya")
+
+                await updateDoc(dd, {
+                    livetestcount : 10
+                });
+                
+                // check if user exist
+
+            }
+       
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
+  }
   const handleBack = () =>
   {
     navigate('/')
@@ -287,7 +333,7 @@ function LiveTestCurrentPage({setHideHeader}) {
     <div className=''>
     <div className='w-full mx-auto top-0 fixed'>
     <div className='flex justify-between shadow-lg bg-blue-200 p-2'>
-        <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
+        <div className='flex justify-center mt-1'><LiveTestTimer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
         <div className='text-lg md:text-xl mt-1 '> Ques: {index+1}/{lastIndex}</div>
         <div className="relative max-md:hidden" onClick={handleTranslate}>
             <img src="../../images/translate.svg" width={35} alt="Logo" loading='lazy'/>

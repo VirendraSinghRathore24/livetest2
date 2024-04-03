@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import {db} from "../config/firebase";
-import {collection, getDocs} from "firebase/firestore";
+import {collection, getDocs, query, where, doc} from "firebase/firestore";
+import { toast } from "react-toastify";
 
 import ReactModal from 'react-modal'
 
@@ -17,6 +18,7 @@ function HomePage({setHideHeader}) {
     {
         setIsOpen(false);
     }
+
     const handleClick = (testid, paper) => 
     {
         const currentUser = localStorage.getItem("currentUser");
@@ -33,8 +35,10 @@ function HomePage({setHideHeader}) {
     }
 
     const testCollectionRef = collection(db, "livetests");
+    const testCollectionRef1 = collection(db, "livetestcurrent");
     const handleRegisterNow = async () => 
     {
+    
         // check if user registered, if not then ask for login
         const currentUser = localStorage.getItem("currentUser");
 
@@ -49,10 +53,33 @@ function HomePage({setHideHeader}) {
           {
             const paper = filteredData[0].testname;
             const testid = filteredData[0].id;
-            const testtype = 'livetest';
-            // move to condition page
-            const path = `/livetestcondition?testid=${testid}&paper=${paper}`
-            navigate(path);
+            
+            getUserIfAlreadyTakenTest(currentUser).then((isUserExist) => 
+            {
+              if(isUserExist)
+              {
+                  toast.warning(`Test is already taken by ${currentUser}`)
+              }
+              else
+              {
+                  const path = `/livetestcondition?testid=${testid}&paper=${paper}`
+                  navigate(path);
+                // TODO
+                  // getLiveTestCountForUser(currentUser).then((count) => 
+                  // {
+                  //     if(count > 0)
+                  //     {
+                  //       toast.warning(`Live test count is over for ${currentUser}`)
+                  //     }
+                  //     else
+                  //     {
+                  //         // move to condition page
+                  //         const path = `/livetestcondition?testid=${testid}&paper=${paper}`
+                  //         navigate(path);
+                  //     }
+                  // }) 
+              }            
+            });
           }
           else
           {
@@ -66,6 +93,62 @@ function HomePage({setHideHeader}) {
         }
     }
    
+    const testCollectionRef2 = collection(db, "livetestcount");
+    const getLiveTestCountForUser = async (currentUser) =>
+    {
+        try
+        {
+            const livedata = await getDocs(testCollectionRef2);
+            console.log("hello")
+            if(livedata.docs.length > 0)
+            {
+                // get livetestcount and update
+                const filteredData = livedata.docs.map((doc) => ({...doc.data(), id:doc.id}));
+                const liveTestDoc = doc(db, testCollectionRef2, filteredData[0].id);
+                
+
+
+                console.log(typeof(liveTestDoc))
+                return 1;
+            }
+
+            return 0;
+        }
+        catch(err)
+        {
+           console.log(err);
+        }
+    }
+
+    const getUserIfAlreadyTakenTest = async (currentUser) => 
+    {
+        try
+        {
+            var q = query(testCollectionRef1,where('name', '==', currentUser))
+
+            const pp = await getDocs(q);
+            var isUserExist = false;
+
+            for(var snap of pp.docs)
+            {
+              var data2 = snap.data();
+              
+              if(currentUser == data2.name)
+              {
+                isUserExist = true;
+                
+              }
+              
+              if(isUserExist) break;
+            }
+
+            return isUserExist;
+        }
+        catch(err)
+        {
+          console.log(err)
+        } 
+    }
     
     const getLiveTest = async () =>
     {
@@ -73,8 +156,6 @@ function HomePage({setHideHeader}) {
         {
             const data = await getDocs(testCollectionRef);
             const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-
-            console.log("virennnn => " + filteredData[0].isPublished);
 
             if(filteredData[0].isPublished)
             {
@@ -166,7 +247,6 @@ function HomePage({setHideHeader}) {
                     <div className='text-xl'>Have patience, Keep exploring our website</div>
                     <div class="flex items-center mx-auto text-center border-t border-brColor pt-4 w-full"></div>
     </ReactModal>
-            
       </div>
 
     </div>
