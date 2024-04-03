@@ -263,7 +263,7 @@ function TestPage({setHideHeader}) {
     <div className=''>
     <div className='w-full mx-auto top-0 fixed'>
     <div className='flex justify-between shadow-md bg-blue-200 p-2'>
-        <div className='flex justify-center mt-1'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
+        <div className='flex justify-left mt-1 w-20'><Timer testid={testid} paper={paper} lastIndex={lastIndex} posts={posts} setRunningMin={setRunningMin} setRunningSec={setRunningSec} totalMinutes={minutes} totalSeconds={seconds} setHideHeader={setHideHeader}/></div>
         <div className='text-lg md:text-xl mt-1 '> Ques: {index+1}/{lastIndex}</div>
         <button className='bg-green-500 text-white px-4 py-2 text-md rounded-md sm:mb-0' onClick={handleSubmitClick1}>Submit</button>
     </div>
