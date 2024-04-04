@@ -7,6 +7,7 @@ import ReactModal from 'react-modal';
 import {db} from "../../config/firebase";
 import {collection, addDoc, getDocs, doc, updateDoc, query, where, DocumentReference} from "firebase/firestore";
 import LiveTestTimer from './LiveTestTimer';
+import LiveTestCard from './LiveTestCard';
 
 function LiveTestCurrentPage({setHideHeader}) {
   
@@ -69,6 +70,7 @@ function LiveTestCurrentPage({setHideHeader}) {
   const handlePrevClick = (ind) => {
     //setOpen(true);
     setIndex(index - 1);
+    setExpanded(false);
     //window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
@@ -123,6 +125,7 @@ function LiveTestCurrentPage({setHideHeader}) {
   const handleNextClick = (ind) => {
     //setOpen(true);
     setIndex(index + 1);
+    setExpanded(false);
     //window.scroll(0,0);
 
     let selectedIndex = localStorage.getItem(testid + "#" + ind);
@@ -369,8 +372,8 @@ function LiveTestCurrentPage({setHideHeader}) {
                 <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 md:gap-x-4 justify-center'>
                 {
                     posts.map((d, index) => (
-                        <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
-                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
+                        <LiveTestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen} setExpanded={setExpanded}/>
                     ))
                 }
             </div>
@@ -383,8 +386,8 @@ function LiveTestCurrentPage({setHideHeader}) {
          <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4 max-md:hidden'>
             {
                 posts.map((d, index) => (
-                    <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
-                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
+                    <LiveTestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen} setExpanded={setExpanded}/>
                 ))
             }
          </div>
