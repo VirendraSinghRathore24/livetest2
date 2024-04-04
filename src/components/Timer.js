@@ -15,10 +15,10 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
     useEffect(()=> {
 
             const data1 = testdata.filter((x) => x.testid == testid);
-            setMinutes(data1[0].timeInMinutes);
-            setSeconds(data1[0].timeInSeconds);
-            // setMinutes(60);
-            // setSeconds(20);
+            // setMinutes(data1[0].timeInMinutes);
+            // setSeconds(data1[0].timeInSeconds);
+            setMinutes(60);
+            setSeconds(20);
         
     },[]);
 

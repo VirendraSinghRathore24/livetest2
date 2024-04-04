@@ -19,13 +19,13 @@ function HomePage({setHideHeader}) {
         setIsOpen(false);
     }
 
-    const handleClick = (testid, paper) => 
+    const handleClick = (testid, paper, testtime) => 
     {
         const currentUser = localStorage.getItem("currentUser");
 
         if(currentUser)
         {
-            const path = `/testcondition?testid=${testid}&paper=${paper}`
+            const path = `/testcondition?testid=${testid}&paper=${paper}&testtime=${testtime}`
             navigate(path);
         }
         else
@@ -215,9 +215,9 @@ function HomePage({setHideHeader}) {
           <div className='text-3xl font-bold'>Previous Year Mock Tests</div>
           <div class="flex items-center text-center border-t border-brColor pt-4 mt-6"></div>
           <div className='flex flex-col gap-y-12 items-center mt-8 mb-4 text-lg md:text-2xl'>
-            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(1, "Reet Paper - Physics")}>Reet Paper - Physics</button>
-            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(2, "Reet I P - Chemistry")}>Reet I P - Chemistry</button>
-            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(3, "Reet I - Mathematics")}>Reet I - Mathematics</button>
+            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(1, "Reet Paper - Physics", "2 : 30")}>Reet Paper - Physics</button>
+            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(2, "Reet I P - Chemistry", "1 : 20")}>Reet I P - Chemistry</button>
+            <button className=' bg-blue-800 text-white px-4 py-2 font-xl rounded-md sm:mb-0 hover:bg-green-600' onClick={() => handleClick(3, "Reet I - Mathematics", "1 : 14")}>Reet I - Mathematics</button>
           </div>
         </div>
         

@@ -30,6 +30,7 @@ function TestPage({setHideHeader}) {
   const [runningSec, setRunningSec] = useState(0);
 
   const [open, setOpen] = useState(true);
+  const [hideButtons, setHideButtons] = useState(false);
 
   function fetchTestData()
   {
@@ -245,9 +246,12 @@ function TestPage({setHideHeader}) {
     navigate('/')
   }
 
+  const handleExpand = (flag) => 
+  {
+    setOpen(flag);
+    setHideButtons(!flag);
+  }
   useEffect(() => {
-    let handler = () => { setOpen(true);};
-    document.addEventListener("mousedown", handler);
     window.scroll(0,0);
     for(var i = 0; i <= lastIndex; i++)
     {
@@ -278,27 +282,27 @@ function TestPage({setHideHeader}) {
     <div>
               {
                 open ? (
-                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2 md:hidden" onClick={() => setOpen(false)}>
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2 md:hidden" onClick={() => handleExpand(false)}>
                     <img src="../../images/expand_down.svg" alt="Logo" width={45} loading='lazy'/>
                 </div>) : (
-                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2  md:hidden" onClick={() => setOpen(true)}>
+                <div className="relative flex h-[52px] w-[66px] cursor-pointer flex-col items-end justify-between mr-2  md:hidden" onClick={() => handleExpand(true)}>
                 <img src="../../images/expand_up.svg" alt="Logo" width={45} loading='lazy'/>
                 </div>
                 )
               }
               </div>
               </div>
-              <div>
+              <div className=''>
                 {
                     !open ? (
-                    <div className="absolute left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden pointer-events-auto 
+                    <div className="fixed left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden 
                     visible">
-     
+
                 <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 gap-y-2 md:gap-x-4 justify-center'>
                 {
                     posts.map((d, index) => (
                         <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
-                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen} setHideButtons={setHideButtons}/>
                     ))
                 }
             </div>
@@ -308,7 +312,7 @@ function TestPage({setHideHeader}) {
               
               </div>
          <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
-         <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4 max-md:hidden'>
+         <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4  max-md:hidden'>
             {
                 posts.map((d, index) => (
                     <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
@@ -378,8 +382,9 @@ function TestPage({setHideHeader}) {
                 </div>
                 </div>
             </div>
-               
-                <div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed md:hidden ">
+               <div>
+               {
+                 hideButtons ? (<div></div>) : (<div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed md:hidden ">
                 <div>
                         {
                             index > 0 ? (
@@ -402,6 +407,9 @@ function TestPage({setHideHeader}) {
                     }
                     </div>
      
+                
+                </div>)
+               }
                 
                 </div>
 

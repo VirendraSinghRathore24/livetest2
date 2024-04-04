@@ -315,9 +315,6 @@ function LiveTestCurrentPage({setHideHeader}) {
   }
 
   useEffect(() => {
-    let handler = () => { setOpen(true);};
-    document.addEventListener("mousedown", handler);
-    
     for(var i = 0; i <= lastIndex; i++)
     {
         localStorage.removeItem(testid +"#"+ (i+1))
