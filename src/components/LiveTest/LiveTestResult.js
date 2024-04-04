@@ -81,8 +81,9 @@ function LiveTestResult() {
             <div className='text-lg'>You have completed the test</div>
             <div className='text-xl font-bold text-blue-600'>{paper}</div>
             <div className='text-lg text-center p-2'>This test was organized by livetest.com on</div>
-            <div className='text-lg text-center font-semibold'>{date} {time}</div>
-            <div className=' text-xl font-semibold mt-2'>Your Score : {score} %</div>
+            <div className='text-lg text-center font-semibold'>Test Date : {date}</div>
+            <div className='text-lg text-center font-semibold'>Time Taken : <span className='text-green-600'>{time} sec</span></div>
+            <div className=' text-2xl font-semibold mt-2'>Your Score : <span className='text-blue-600'>{score} %</span></div>
         </div>
         <div class="flex items-center mx-auto text-center border-t border-brColor pt-4 w-8/12"></div>
         <div className='text-center'>

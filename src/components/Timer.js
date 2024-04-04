@@ -15,9 +15,10 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
     useEffect(()=> {
 
             const data1 = testdata.filter((x) => x.testid == testid);
-            //setMinutes(data1[0].timeInMinutes);
-            setMinutes(60);
-            setSeconds(20);
+            setMinutes(data1[0].timeInMinutes);
+            setSeconds(data1[0].timeInSeconds);
+            // setMinutes(60);
+            // setSeconds(20);
         
     },[]);
 
@@ -87,8 +88,8 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
                     console.log(err);
                 }
 
-            //let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
-            //navigate(path);
+            let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${timeTaken}&&resultid=${resultid}`; 
+            navigate(path);
         }
         catch(err)
         {

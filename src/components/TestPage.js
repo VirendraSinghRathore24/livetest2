@@ -236,7 +236,7 @@ function TestPage({setHideHeader}) {
     //console.log("timeTaken => " + timeTaken);
     
 
-    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
+    let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${timeTaken}&&resultid=${resultid}`; 
     navigate(path);
   }
 

@@ -20,6 +20,7 @@ import LiveTestPage from "./components/admin/LiveTestPage";
 import LiveTestCurrentPage from "./components/LiveTest/LiveTestCurrentPage";
 import LiveTestResult from "./components/LiveTest/LiveTestResult";
 import LiveConditionPage from "./components/LiveTest/LiveConditionPage";
+import LiveTestLeaderBoard from "./components/LiveTest/LiveTestLeaderBoard";
 
 export default function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -47,6 +48,7 @@ export default function App() {
           <Route path="/admin/addtest" element={<AddTest/>}/>
           <Route path="/admin/livetest" element={<LiveTestPage/>}/>
           <Route path="/livetestresult" element={<LiveTestResult/>}/>
+          <Route path="/livetestleaderboard" element={<LiveTestLeaderBoard/>}/>
           <Route path="/auth" element={<Auth/>}/>
       </Routes>
       <ToastContainer/>
