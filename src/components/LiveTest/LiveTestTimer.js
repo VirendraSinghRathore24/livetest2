@@ -23,7 +23,10 @@ const LiveTestTimer = ({testid, paper, lastIndex, posts, setRunningMin, setRunni
             const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
             const duration = filteredData[0].duration;
             const time = duration.split(':');
-            setMinutes(time[0]);
+            // setMinutes(time[0]);
+            // setSeconds(time[1]);
+
+            setMinutes(100);
             setSeconds(time[1]);
         }
         catch(err)

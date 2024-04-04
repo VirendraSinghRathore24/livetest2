@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import {db} from "../../config/firebase";
+import {db, imageDb} from "../../config/firebase";
 import {collection, addDoc, doc, updateDoc, getDocs} from "firebase/firestore";
+import { ref, uploadBytes } from 'firebase/storage';
+import {v4} from 'uuid'
 
 function AddTest() {
 
     const [added, setAdded] = useState(false);
     const [testList, setTestList] = useState([]);
+    const [img, setImg] = useState('');
 
     const [formData, setFormData] = useState({
-        testname:"", duration:"", testdate:"", question:"", 
+        testname:"", duration:"", testdate:"", question:"", desc:"",
         a:"", b:"", c:"", d:"", ans:"",
-        questionHindi:"", aHindi:"", bHindi:"", cHindi:"", dHindi:""
+        questionHindi:"", descHindi:"", aHindi:"", bHindi:"", cHindi:"", dHindi:""
     })
+
+    const handleClick = () =>{
+        const imgRef = ref(imageDb, `files/test.png`);
+        uploadBytes(imgRef, img);
+    }
 
     const testCollectionRef = collection(db, "livetests");
 
@@ -74,7 +82,7 @@ function AddTest() {
                 const liveTestDoc = doc(db, "livetests", liveTestDocData[0].id);
 
                 let problem = liveTestDocData[0].problem !== undefined ? liveTestDocData[0].problem : [];
-                problem.push({question:formData.question, a:formData.a, b:formData.b, c:formData.c, d:formData.d, ans:formData.ans, questionHindi:formData.questionHindi, aHindi:formData.aHindi, bHindi:formData.bHindi, cHindi:formData.cHindi, dHindi:formData.dHindi})
+                problem.push({question:formData.question, desc:formData.desc, a:formData.a, b:formData.b, c:formData.c, d:formData.d, ans:formData.ans, questionHindi:formData.questionHindi, descHindi:formData.descHindi, aHindi:formData.aHindi, bHindi:formData.bHindi, cHindi:formData.cHindi, dHindi:formData.dHindi})
 
                 await updateDoc(liveTestDoc, {
                     problem:problem
@@ -84,6 +92,7 @@ function AddTest() {
 
                 setFormData({
                     question : "",
+                    desc : "",
                     a : "",
                     b : "",
                     c : "",
@@ -113,6 +122,10 @@ function AddTest() {
         added ? 
         (
         <div className='flex justify-between w-11/12 mx-auto'>
+        {/* <div>
+                        <input type='file' onChange={(e) => setImg(e.target.files[0])} />
+                        <button onClick={handleClick} className='bg-yellow-200 rounded-[8px] font-medium text-richblack-900 px-[12px] py-[8px] mt-6 w-full'>Upload</button>
+                    </div> */}
             <form onSubmit={handleSubmit2}>
                 <div className='flex flex-col justify-center w-full md:justify-between md:w-11/12 mx-auto'>
                     <div className='flex justify-between gap-x-4 mt-[20px] border-2 w-full mx-auto'>
@@ -122,6 +135,16 @@ function AddTest() {
                                     className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
                             </label>
                     </div>
+                    
+                    <div className='flex justify-between gap-x-4 mt-[20px] border-2 w-full mx-auto'>
+                            <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Description</p>
+                                <input type="text" name="desc" onChange={changeHandler} placeholder='Enter description' value={formData.desc}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
+                            </label>
+                    </div>
+                    
+
                     <div className='flex justify-between gap-x-4 mt-[20px] border-2 w-full mx-auto'>
                             <label className='w-full'>
                                 <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Question Hindi<sup className='text-red-600'>*</sup></p>
@@ -129,6 +152,15 @@ function AddTest() {
                                     className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
                             </label>
                     </div>
+
+                    <div className='flex justify-between gap-x-4 mt-[20px] border-2 w-full mx-auto'>
+                            <label className='w-full'>
+                                <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Description Hindi</p>
+                                <input type="text" name="deschindi" onChange={changeHandler} placeholder='Enter description hindi' value={formData.descHindi}
+                                    className='bg-richblack-5 rounded-[0.5rem] text-rickblack-700 p-[12px]'/>
+                            </label>
+                    </div>
+
                     <div className='flex justify-between gap-x-4 mt-[20px]'>
                             <label className='w-full'>
                                 <p className='text-xl text-richblack-700 mb-1 leading-[1.375rem]'>Option a<sup className='text-red-600'>*</sup></p>
