@@ -396,7 +396,7 @@ function LiveTestCurrentPage({setHideHeader}) {
                     posts != null && posts.length > 0 && !loading ? (
                     <div className=''>
                         {
-                            posts[index].desc ? ( <div onClick={() => setExpanded(!isExpanded)}>
+                           posts[index].desc ? ( <div onClick={() => setExpanded(!isExpanded)}>
                            <div className='flex justify-center mb-4 cursor-pointer'>
                            {
                             isExpanded ? (
@@ -459,6 +459,29 @@ function LiveTestCurrentPage({setHideHeader}) {
                 {
                     posts != null && posts.length > 0 && !loading ? (
                     <div className=''>
+                    {
+                           posts[index].descHindi ? ( <div onClick={() => setExpanded(!isExpanded)}>
+                           <div className='flex justify-center mb-4 cursor-pointer'>
+                           {
+                            isExpanded ? (
+                                <div className='flex text-blue-600 font-semibold'>
+                                    <div>Show Description</div>
+                                    <img  src="../../images/down-arrow.svg" alt="Logo" width={28} loading='lazy'/>
+                                </div>) 
+                                : (<div className='flex text-blue-600 font-semibold'>
+                                    <div>Hide Description</div>
+                                    <img src="../../images/up-arrow.svg" alt="Logo" width={28} loading='lazy'/>
+                                </div>)
+                            }
+                            </div>
+                            <div>
+                            {
+                            !isExpanded ? (<div className='text-lg mb-4'><span className='font-semibold'>Description :</span> {posts[index].descHindi}</div>) : (<div></div>)
+                            }
+                            </div>
+                            
+                        </div>) : (<div></div>)
+                        }
                         <div className='font-semibold text-xl'>{posts[index].questionHindi}</div>
                         <div className='flex flex-col mt-4 gap-y-4'>
                         <div onClick={() => handleClick(1, index)}>
@@ -523,7 +546,7 @@ function LiveTestCurrentPage({setHideHeader}) {
                 </div>
             </div>
                
-                <div className="flex justify-between mb-6 w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed md:hidden ">
+                <div className="flex justify-between w-full mx-auto bottom-0 p-2 bg-gray-100 shadow-lg fixed md:hidden ">
                 <div>
                         {
                             index > 0 ? (
