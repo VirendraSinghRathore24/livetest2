@@ -296,7 +296,7 @@ function TestPage({setHideHeader}) {
                 {
                     !open ? (
                     <div className="fixed left-12 right-0 bg-gray-100 pt-[2vh] pb-[3vh] md:hidden 
-                    visible">
+                    visible h-[80vh] overflow-auto">
 
                 <div className='flex flex-wrap w-full md:w-4/12 mx-auto gap-x-0 gap-y-2 md:gap-x-4 justify-center'>
                 {
