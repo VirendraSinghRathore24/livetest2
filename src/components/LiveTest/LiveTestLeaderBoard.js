@@ -52,7 +52,7 @@ function LiveTestLeaderBoard() {
               posts !== null && posts.length > 0 && posts.map((p, index) => (
                 <tr className="border-2 border-black">
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2  align-baseline text-center text-wrap ">{index+1}</td>
-                  <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.name.substring(0, p.name.length -4)}</td>
+                  <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.name}</td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.result} %</td>
                   <td className="whitespace-wrap text-md font-medium px-1 py-2 border-r-2 align-baseline text-center break-all text-wrap border-black">{p.timeTaken} sec</td>
                 </tr>

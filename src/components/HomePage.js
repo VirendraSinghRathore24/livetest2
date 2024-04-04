@@ -36,9 +36,9 @@ function HomePage({setHideHeader}) {
 
     const testCollectionRef = collection(db, "livetests");
     const testCollectionRef1 = collection(db, "livetestcurrent");
+
     const handleRegisterNow = async () => 
     {
-    
         // check if user registered, if not then ask for login
         const currentUser = localStorage.getItem("currentUser");
 
