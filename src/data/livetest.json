@@ -476,6 +476,118 @@
                 "c" : "12",
                 "d" : "14",
                 "result" : 1
+            },
+            {
+                "question" : "Who is neighbor country of India?",
+                "a" : "America",
+                "b" : "Newzeland",
+                "c" : "Australiya",
+                "d" : "Srilanka",
+                "result" : 4
+            },
+            {
+                "question" : "What is 20 + 8 /2 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "24",
+                "result" : 4
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
+            },
+            {
+                "question" : "Who is neighbor country of India?",
+                "a" : "America",
+                "b" : "Newzeland",
+                "c" : "Australiya",
+                "d" : "Srilanka",
+                "result" : 4
+            },
+            {
+                "question" : "What is 20 + 8 /2 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "24",
+                "result" : 4
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
+            },
+            {
+                "question" : "Who is neighbor country of India?",
+                "a" : "America",
+                "b" : "Newzeland",
+                "c" : "Australiya",
+                "d" : "Srilanka",
+                "result" : 4
+            },
+            {
+                "question" : "What is 20 + 8 /2 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "24",
+                "result" : 4
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
+            },
+            {
+                "question" : "Who is neighbor country of India?",
+                "a" : "America",
+                "b" : "Newzeland",
+                "c" : "Australiya",
+                "d" : "Srilanka",
+                "result" : 4
+            },
+            {
+                "question" : "What is 20 + 8 /2 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "24",
+                "result" : 4
+            },
+            {
+                "question" : "What is 1 + 8 ?",
+                "a" : "9",
+                "b" : "10",
+                "c" : "12",
+                "d" : "14",
+                "result" : 1
             }
         ]
     },

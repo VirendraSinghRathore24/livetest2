@@ -312,11 +312,11 @@ function TestPage({setHideHeader}) {
               
               </div>
          <div className='flex flex-col md:flex-row justify-evenly w-11/12 md:w-9/12 mx-auto'>
-         <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4  max-md:hidden'>
+         <div className='flex flex-wrap w-full md:w-5/12 mx-auto mt-28 gap-x-0 md:gap-x-4 gap-y-2 max-md:hidden'>
             {
                 posts.map((d, index) => (
                     <TestCard key={index} d={index} setIndex={setIndex} testid={testid} setFirstIndex={setFirstIndex}
-                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen}/>
+                     setSecondIndex={setSecondIndex} setThirdIndex={setThirdIndex} setFourthIndex={setFourthIndex} setOpen={setOpen} setHideButtons={setHideButtons}/>
                 ))
             }
          </div>
