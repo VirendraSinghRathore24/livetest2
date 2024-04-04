@@ -246,6 +246,8 @@ function TestPage({setHideHeader}) {
   }
 
   useEffect(() => {
+    let handler = () => { setOpen(true);};
+    document.addEventListener("mousedown", handler);
     window.scroll(0,0);
     for(var i = 0; i <= lastIndex; i++)
     {

@@ -16,7 +16,7 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
 
             const data1 = testdata.filter((x) => x.testid == testid);
             //setMinutes(data1[0].timeInMinutes);
-            setMinutes(100);
+            setMinutes(60);
             setSeconds(20);
         
     },[]);
@@ -43,7 +43,10 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
           };
     });
 
-    const submitTest = async () =>{
+    const submitTest = async (e) =>{
+        try{
+            e.prevantDefault();
+        
         setHideHeader(false);
             var ans = [];
             let c = 0;
@@ -59,7 +62,7 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
 
                 ans.push({resUser});
             }
-
+           
             var result = (c/lastIndex)*100;
             
             var today = new Date();
@@ -84,8 +87,13 @@ const Timer = ({testid, paper, lastIndex, posts, setRunningMin, setRunningSec, t
                     console.log(err);
                 }
 
-            let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
-            navigate(path);
+            //let path = `/testresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
+            //navigate(path);
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
     }
     return (
         <div>
