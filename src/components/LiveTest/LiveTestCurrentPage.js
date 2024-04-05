@@ -413,17 +413,24 @@ function LiveTestCurrentPage({setHideHeader}) {
                                     <div>Show Description </div>
                                     <img  src="../../images/down-arrow.svg" alt="Logo" width={28} loading='lazy'/>
                                 </div>) 
-                                : (<div className='flex text-blue-600 font-semibold'>
-                                    <div>Hide Description</div>
-                                    <img src="../../images/up-arrow.svg" alt="Logo" width={28} loading='lazy'/>
+                                : (<div className=''>
+                                    <div className=''>
+                                    {
+                                        !isExpanded ? (<div className='text-lg mb-4'><span className='font-semibold'>Description :</span> {posts[index].desc}</div>) : (<div></div>)
+                                    }
+                                    </div>
+                                    <div className='flex justify-center mb-4 cursor-pointer'>
+                                        <div className='flex text-blue-600 font-semibold'>Hide Description</div>
+                                        <img src="../../images/up-arrow.svg" alt="Logo" width={28} loading='lazy'/>
+                                    </div>
                                 </div>)
                             }
                             </div>
-                            <div>
+                            {/* <div>
                             {
                             !isExpanded ? (<div className='text-lg mb-4'><span className='font-semibold'>Description :</span> {posts[index].desc}</div>) : (<div></div>)
                             }
-                            </div>
+                            </div> */}
                             
                         </div>) : (<div></div>)
                         }
