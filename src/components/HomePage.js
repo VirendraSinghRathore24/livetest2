@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import {db} from "../config/firebase";
 import {collection, getDocs, query, where, doc} from "firebase/firestore";
 import { toast } from "react-toastify";
+import {getLiveTests} from "./LiveTest/DbResults"
 
 import ReactModal from 'react-modal'
 
@@ -34,10 +35,9 @@ function HomePage({setHideHeader}) {
         }
     }
 
-    const testCollectionRef = collection(db, "livetests");
     const testCollectionRef1 = collection(db, "livetestcurrent");
 
-    const handleRegisterNow = async () => 
+    const handleRegisterNow = () => 
     {
         // check if user registered, if not then ask for login
         const currentUser = localStorage.getItem("currentUser");
@@ -45,47 +45,54 @@ function HomePage({setHideHeader}) {
         if(currentUser)
         {
           // check if test is started, if not not then show message
-          const data = await getDocs(testCollectionRef);
-          const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-          const isStarted = filteredData[0].isStarted;
-          
-          if(isStarted)
+
+          getLiveTests().then((filteredData) => 
           {
-            const paper = filteredData[0].testname;
-            const testid = filteredData[0].id;
-            
-            getUserIfAlreadyTakenTest(currentUser).then((isUserExist) => 
-            {
-              if(isUserExist)
+              const data = JSON.parse(filteredData);
+              setPosts(data);
+
+              return data;
+          }).then((filteredData) => 
+          {
+              const isStarted = filteredData[0].isStarted;
+              
+              if(isStarted)
               {
-                  toast.warning(`Test is already taken by ${currentUser}`)
+                const paper = filteredData[0].testname;
+                const testid = filteredData[0].id;
+                
+                getUserIfAlreadyTakenTest(currentUser).then((isUserExist) => 
+                {
+                  if(isUserExist)
+                  {
+                      toast.warning(`Test is already taken by ${currentUser}`)
+                  }
+                  else
+                  {
+                      navigate('/livetestcondition', {state : {paper : paper, testid: testid, filteredData: filteredData}});
+                    // TODO
+                      // getLiveTestCountForUser(currentUser).then((count) => 
+                      // {
+                      //     if(count > 0)
+                      //     {
+                      //       toast.warning(`Live test count is over for ${currentUser}`)
+                      //     }
+                      //     else
+                      //     {
+                      //         // move to condition page
+                      //         const path = `/livetestcondition?testid=${testid}&paper=${paper}`
+                      //         navigate(path);
+                      //     }
+                      // }) 
+                  }            
+                });
               }
               else
               {
-                  const path = `/livetestcondition?testid=${testid}&paper=${paper}`
-                  navigate(path);
-                // TODO
-                  // getLiveTestCountForUser(currentUser).then((count) => 
-                  // {
-                  //     if(count > 0)
-                  //     {
-                  //       toast.warning(`Live test count is over for ${currentUser}`)
-                  //     }
-                  //     else
-                  //     {
-                  //         // move to condition page
-                  //         const path = `/livetestcondition?testid=${testid}&paper=${paper}`
-                  //         navigate(path);
-                  //     }
-                  // }) 
-              }            
-            });
-          }
-          else
-          {
-            setIsOpen(true);
-            setIsStarted(false);
-          }
+                setIsOpen(true);
+                setIsStarted(false);
+              }
+        });
         }
         else
         {
@@ -150,23 +157,28 @@ function HomePage({setHideHeader}) {
         } 
     }
     
-    const getLiveTest = async () =>
+    
+
+   
+    const getLiveTest = () =>
     {
         try
         {
-            const data = await getDocs(testCollectionRef);
-            const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-
-            if(filteredData[0].isPublished)
+            getLiveTests().then((filteredData) => 
             {
-               setIsPublished(true);
-               setPosts(filteredData);
-            }
-            else
-            {
-              setIsPublished(false);
-              setPosts([]);
-            }
+                if(filteredData[0].isPublished)
+                {
+                  setIsPublished(true);
+                  setPosts(filteredData);
+                }
+                else
+                {
+                  setIsPublished(false);
+                  setPosts([]);
+                }
+          }).catch((er) => {
+              console.log(er);
+          } );
         }
         catch(err)
         {
@@ -174,7 +186,13 @@ function HomePage({setHideHeader}) {
         }
     }
 
+    function clearLocalStorage()
+    {
+      localStorage.removeItem("livetests");
+    }
     useEffect(() => {
+      clearLocalStorage();
+
       getLiveTest();
       setHideHeader(false);
       window.scroll(0,0);

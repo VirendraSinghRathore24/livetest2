@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
-
 
 function LiveConditionPage({setHideHeader}) {
     const [isOpen, setIsOpen] = useState(false);    
-    const [searchParams, setSearchParams] = useSearchParams();
+    const location = useLocation();
 
     let navigate = useNavigate();
 
-    const testid = searchParams.get('testid');
-    const paper = searchParams.get('paper').replaceAll('%20', ' ');
+    const testid = location.state.testid;
+    const paper = location.state.paper;
 
     const handleBegin = () =>
     {
         setHideHeader(true);
       
-        let path = `/livetest?testid=${testid}&paper=${paper}`; 
-        navigate(path);
+        navigate('/livetest', {state : {testid : testid, paper : paper}});
     }
 
     const handleCancelClick = () => 
     {
-        window.location.href = `/`
+        navigate('/');
     }
 
     useEffect(() => {
         window.scroll(0,0);
       }, []);
+
   return (
     <div className='p-4'>
         <ReactModal isOpen={isOpen}

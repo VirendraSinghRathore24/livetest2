@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {db} from "../../config/firebase";
 import {collection, addDoc, getDocs} from "firebase/firestore";
+import { getLiveTests } from './DbResults';
 
 
 
@@ -18,16 +19,20 @@ const LiveTestTimer = ({testid, paper, lastIndex, posts, setRunningMin, setRunni
     const getTime = async () => {
         try
         {
-            const testCollectionRef1 = collection(db, "livetests");
-            const data = await getDocs(testCollectionRef1);
-            const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-            const duration = filteredData[0].duration;
-            const time = duration.split(':');
-            // setMinutes(time[0]);
-            // setSeconds(time[1]);
+            getLiveTests().then((data) => {
+                return JSON.parse(data);
+            }).then((filteredData) => {
 
-            setMinutes(100);
-            setSeconds(time[1]);
+                const duration = filteredData[0].duration;
+                const time = duration.split(':');
+                // setMinutes(time[0]);
+                // setSeconds(time[1]);
+
+                setMinutes(100);
+                setSeconds(10);
+            }).catch((er) => {
+                console.log(er);
+            })
         }
         catch(err)
         {
@@ -36,13 +41,7 @@ const LiveTestTimer = ({testid, paper, lastIndex, posts, setRunningMin, setRunni
     }
 
     useEffect(()=> {
-
-            getTime();
-            //const data1 = testdata.filter((x) => x.testid == testid);
-            //setMinutes(data1[0].timeInMinutes);
-            // setMinutes(100);
-            // setSeconds(20);
-        
+            getTime();     
     },[]);
 
 

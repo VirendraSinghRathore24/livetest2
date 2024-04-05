@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from '../Spinner';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import TestCard from '../TestCard';
-import Timer from '../Timer';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import {db} from "../../config/firebase";
-import {collection, addDoc, getDocs, doc, updateDoc, query, where, DocumentReference} from "firebase/firestore";
+import {collection, addDoc, getDocs, updateDoc, query, where} from "firebase/firestore";
 import LiveTestTimer from './LiveTestTimer';
 import LiveTestCard from './LiveTestCard';
+import { getLiveTests } from './DbResults';
 
 function LiveTestCurrentPage({setHideHeader}) {
   
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const testid = searchParams.get('testid'); 
-  const paper = searchParams.get('paper');
-  const testtype = searchParams.get('testtype');
+  const location = useLocation();
+
+  const testid = location.state.testid;
+  const paper = location.state.paper;
   
   const [posts, setPosts] = useState([]);
   const [lastIndex, setLastIndex] = useState(100);
@@ -42,21 +41,27 @@ function LiveTestCurrentPage({setHideHeader}) {
     setIsHindi(!isHindi);
   }
   
-  const fetchLiveTestData = async () =>
+  const fetchLiveTestData = () =>
   {
     try
     {
         setLoading(true);
-        const testCollectionRef1 = collection(db, "livetests");
-        const data = await getDocs(testCollectionRef1);
-        const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-        const duration = filteredData[0].duration;
-        const time = duration.split(':');
-        setMinutes(time[0]);
-        setSeconds(time[1]);
-  
-        setLastIndex(filteredData[0].problem.length);
-        setPosts(filteredData[0].problem);
+
+        getLiveTests().then((data) => 
+        { 
+            return JSON.parse(data);
+        }).then((filteredData) => 
+        {
+            const duration = filteredData[0].duration;
+            const time = duration.split(':');
+            setMinutes(time[0]);
+            setSeconds(time[1]);
+    
+            setLastIndex(filteredData[0].problem.length);
+            setPosts(filteredData[0].problem);    
+        }).catch((er) => {
+            console.log(er);
+        });
 
         setLoading(false);
     }
@@ -268,8 +273,9 @@ function LiveTestCurrentPage({setHideHeader}) {
     //console.log("timeTaken => " + timeTaken);
     
 
-    let path = `/livetestresult?testid=${testid}&paper=${paper}&&score=${result}&&date=${date}&&time=${time}&&resultid=${resultid}`; 
-    navigate(path);
+    let path = `/livetestresult`; 
+
+    navigate(path, {state : {testid : testid, paper : paper, score : result, date : date, resultid : resultid}});
   }
 
   const updateLiveTestCount = async (user) => 
@@ -404,7 +410,7 @@ function LiveTestCurrentPage({setHideHeader}) {
                            {
                             isExpanded ? (
                                 <div className='flex text-blue-600 font-semibold'>
-                                    <div>Show Description</div>
+                                    <div>Show Description </div>
                                     <img  src="../../images/down-arrow.svg" alt="Logo" width={28} loading='lazy'/>
                                 </div>) 
                                 : (<div className='flex text-blue-600 font-semibold'>
