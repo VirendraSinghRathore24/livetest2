@@ -73,6 +73,7 @@ function LiveTestResult() {
             <div className='text-lg text-center font-semibold'>Test Date : {date}</div>
             {/* <div className='text-lg text-center font-semibold'>Time Taken : <span className='text-green-600'>{timeTaken} sec</span></div> */}
             <div className=' text-2xl font-semibold mt-2'>Your Score : <span className='text-blue-600'>{score} %</span></div>
+            <div className='text-md font-semibold mt-2 p-4 text-center text-pink-800'>Final Result Anouncement - 10 PM today</div>
         </div>
         <div class="flex items-center mx-auto text-center border-t border-brColor pt-4 w-8/12"></div>
         <div className='text-center'>

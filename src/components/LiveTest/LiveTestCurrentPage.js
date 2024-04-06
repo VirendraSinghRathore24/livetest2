@@ -416,7 +416,7 @@ function LiveTestCurrentPage({setHideHeader}) {
                                 : (<div className=''>
                                     <div className=''>
                                     {
-                                        !isExpanded ? (<div className='text-lg mb-4'><span className='font-semibold'>Description :</span> {posts[index].desc}</div>) : (<div></div>)
+                                        !isExpanded ? (<div className='text-md mb-4'><span className='font-semibold'>Description :</span> {posts[index].desc}</div>) : (<div></div>)
                                     }
                                     </div>
                                     <div className='flex justify-center mb-4 cursor-pointer'>
@@ -474,7 +474,7 @@ function LiveTestCurrentPage({setHideHeader}) {
                 </div>) : ( <div>
                 {
                     posts != null && posts.length > 0 && !loading ? (
-                    <div className=''>
+                    <div>
                     {
                            posts[index].descHindi ? ( <div onClick={() => setExpanded(!isExpanded)}>
                            <div className='flex justify-center mb-4 cursor-pointer'>
