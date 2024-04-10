@@ -21,6 +21,7 @@ import LiveTestCurrentPage from "./components/LiveTest/LiveTestCurrentPage";
 import LiveTestResult from "./components/LiveTest/LiveTestResult";
 import LiveConditionPage from "./components/LiveTest/LiveConditionPage";
 import LiveTestLeaderBoard from "./components/LiveTest/LiveTestLeaderBoard";
+import HomePage1 from "./components/HomePage1";
 
 export default function App() {
   const [hideHeader, setHideHeader] = useState(false);
@@ -33,7 +34,7 @@ export default function App() {
     </div>
      
       <Routes>
-          <Route path="/" element={<HomePage setHideHeader={setHideHeader}/>}/>
+          <Route path="/" element={<HomePage1 setHideHeader={setHideHeader}/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
           <Route path="/timer" element={<Timer/>}/>

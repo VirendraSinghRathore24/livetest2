@@ -49,3 +49,17 @@ export const getAllAnswersByResultId = async (resultid) => {
 
     }
 }
+
+export const getLiveTestResult = async () => {
+    try
+    {
+        const data = await getDocs(testCollectionRef1);
+        const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
+
+        return filteredData;
+    }
+    catch(err)
+    {
+
+    }
+}

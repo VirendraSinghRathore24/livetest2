@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from '../Spinner';
-import {db} from "../../config/firebase";
-import {collection, getDocs} from "firebase/firestore";
+import { getLiveTestResult } from './DbResults';
 
 function LiveTestLeaderBoard() {
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
     const [paper, setPaper] = useState('');
     const [date, setDate] = useState('');
+    const [isDeclared, setIsDeclared] = useState(false);
 
-    const testCollectionRef = collection(db, "livetestcurrent");
-    const fetchResult = async () => {
-        const data = await getDocs(testCollectionRef);
-        const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
+    const fetchResult = () => {
+            setLoading(true);
 
-        console.log(filteredData);
-        setPaper(filteredData[0].paper);
-        setDate(filteredData[0].date);
+            getLiveTestResult().then((filteredData) => {
 
-        var res = filteredData.sort((a, b) => (a.result === b.result) ? (a.timeTaken - b.timeTaken) : (b.result - a.result));
+            setPaper(filteredData[0].paper);
+            setDate(filteredData[0].date);
+    
+            var res = filteredData.sort((a, b) => (a.result === b.result) ? (a.timeTaken - b.timeTaken) : (b.result - a.result));
+    
+            setPosts(res);
 
-        setPosts(res);
+            setLoading(false);
+
+        }).catch((er) => {
+            console.log(er)
+        })
     }
 
     useEffect(() => {
@@ -29,11 +34,13 @@ function LiveTestLeaderBoard() {
     }, [])
 
   return (
+    <div >
+    {
+        !isDeclared ? (
     <div className='flex flex-col justify-evenly items-center mt-6 w-full mx-auto'>
-        <div className='flex gap-y-12 gap-x-10 items-center mt-8 mb-4 text-4xl text-blue-600 font-bold'>
-            {paper} Result
-        </div>
-        <div className='text-lg'>Test Date : {date}</div>
+        <div className='flex gap-y-12 gap-x-10 items-center mt-8 mb-4 text-4xl text-blue-600 font-bold'>Live Test Result</div>
+        <div className='text-2xl font-semibold text-green-600'>Paper : {paper}</div>
+        <div className='text-2xl'>Test Date : {date}</div>
         <div className="overflow-hidden mt-8 p-2 w-full">
         {
             loading ? (<div className='ml-10 sm:ml-96 mt-10 sm:mt-20'><Spinner/> </div>) 
@@ -63,6 +70,9 @@ function LiveTestLeaderBoard() {
         }
         
        </div>  
+       </div>
+       ) : (<div className='text-3xl font-bold text-blue-600'>Result is not yet declared. Please Wait...</div>)
+    }
     </div>
   )
 }

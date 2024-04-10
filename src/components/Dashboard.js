@@ -34,7 +34,8 @@ function Dashboard() {
           var data1 = snap.data();
           productArray.push({...data1});
         }
-        setPosts(productArray);
+        const prod = productArray.sort((a ,b) => b.result - a.result);
+        setPosts(prod);
         setLoading(false);
     }
     catch(err){
@@ -50,7 +51,10 @@ const handleLeaderBoard = async () =>
     setIsLeader(true);
     const data = await getDocs(testCollectionRef);
     const filteredData = data.docs.map((doc) => ({...doc.data(), id:doc.id}));
-    setPosts(filteredData)
+
+    var res = filteredData.sort((a, b) => (a.result === b.result) ? (a.timeTaken - b.timeTaken) : (b.result - a.result));
+
+    setPosts(res)
   }
   catch(err)
   {
